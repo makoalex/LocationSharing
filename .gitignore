@@ -1,0 +1,33 @@
+# Ignore node_modules directory for frontend
+frontend/node_modules/
+
+# Ignore node_modules directory for backend
+backend/node_modules/
+
+# Ignore build artifacts for frontend
+frontend/build/
+frontend/dist/
+
+# Ignore build artifacts for backend
+backend/build/
+backend/dist/
+
+# Ignore any environment-specific files for frontend
+frontend/.env
+
+# Ignore any environment-specific files for backend
+backend/.env
+
+# Ignore IDE-specific files for frontend
+frontend/.vscode/
+frontend/.idea/
+
+# Ignore IDE-specific files for backend
+backend/.vscode/
+backend/.idea/
+
+# Ignore any log files for frontend
+frontend/*.log
+
+# Ignore any log files for backend
+backend/*.log
