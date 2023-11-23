@@ -5,6 +5,7 @@ import Input from "../components/Input";
 
 export default function Login() {
   const [userName, setUserName] = useState("");
+  const [locationErrorOccurred, setLocationErrorOccurred] = useState(false)
   const navigate = useNavigate();
   const locationOptions = {
     enableHighAccuracy: true,
@@ -31,6 +32,7 @@ export default function Login() {
   const error = (error: GeolocationPositionError) => {
     console.log(" there was an error getting the location");
     console.log(error);
+    setLocationErrorOccurred(true)
   };
 
   useEffect(() => {
@@ -45,7 +47,7 @@ export default function Login() {
           userName={userName}
           setUserName={setUserName}
           onClickHandler={handleLogin}
-          disabled={!isUserNameValid(userName)}
+          disabled={!isUserNameValid(userName)||locationErrorOccurred}
         />
       </div>
     </div>
