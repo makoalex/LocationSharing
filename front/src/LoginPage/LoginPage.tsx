@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useNavigate, Navigate } from "react-router-dom";
 import Logo from "../components/Logo";
 import Input from "../components/Input";
@@ -6,10 +6,16 @@ import Input from "../components/Input";
 export default function Login() {
   const [userName, setUserName] = useState("");
   const navigate = useNavigate();
+  const locationOptions = {
+    enableHighAccuracy: true,
+    timeout: 5000,
+    maximumAge: 0,
+  };
 
   const handleLogin = () => {
     navigate("/map");
   };
+
   const isUserNameValid = (userName: string) => {
     return (
       userName.length > 0 &&
@@ -18,6 +24,18 @@ export default function Login() {
       !userName.includes(" ")
     );
   };
+
+  const success = (position: GeolocationPosition) => {
+    console.log(position);
+  };
+  const error = (error: GeolocationPositionError) => {
+    console.log(" there was an error getting the location");
+    console.log(error);
+  };
+
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition(success, error, locationOptions);
+  }, []);
 
   return (
     <div className="section flex flex-row justify-center items-center w-full h-screen ">
