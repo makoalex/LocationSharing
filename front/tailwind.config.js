@@ -25,6 +25,7 @@ module.exports = {
       colors: {
         primary: "#ffaa92",
         callAction: "#a66eff",
+        disabledButton:"#a388ee",
         secondary: "#F5F5F5ff",
         accent: "#02EAE8ff",
         nonblue: "#0B2447",
