@@ -32,7 +32,7 @@ export default function Input({
         onClick={onClickHandler}
         className="disabled:text-gray-400 mt-6  border-2 border-b-4 border-black  h-[45px] w-2/4 cursor-pointer bg-callAction text-lg font-secondary font-medium shadow-[2px_2px_1px_0px_#0B2447] focus:transition-all focus:duration-300 focus:shadow-none focus:border-b-2 "
       >
-        Login
+        Join Chat
       </button>
     </div>
   );
