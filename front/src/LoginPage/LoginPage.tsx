@@ -1,12 +1,14 @@
-import React, { FC, useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate, Navigate } from "react-router-dom";
 import { setMyLocation } from "../MapPage/mapSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+
 import Logo from "../components/Logo";
 import Input from "../components/Input";
+
 import { getFakeLocations } from "./TestFakeLocation";
-
-
+import { RootState } from "../Types";
+import { connectWithIoSocket } from "../SocketConnect/SocketConnect";
 
 export default function Login() {
   const [userName, setUserName] = useState("");
@@ -47,12 +49,21 @@ export default function Login() {
     console.log(error);
     setLocationErrorOccurred(true);
   };
+  const myLocation = useSelector((state: RootState) => state.map.myLocation);
 
   useEffect(() => {
     // commenting out for development purposes
     // navigator.geolocation.getCurrentPosition(success, error, locationOptions);
-    success(getFakeLocations() as GeolocationPosition)
+    success(getFakeLocations() as GeolocationPosition);
   }, []);
+   useEffect(()=>{
+    if(myLocation){
+      connectWithIoSocket()
+    }
+
+   } , [
+    myLocation
+  ])
 
   return (
     <div className="section flex flex-row justify-center items-center w-full h-screen ">
