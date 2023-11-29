@@ -1,3 +1,4 @@
+
 const afterLoading = () => cy.visit("/");
 describe("HomePage", () => {
   beforeEach(() => {
@@ -14,4 +15,10 @@ describe("HomePage", () => {
   it("should have a button", () => {
     cy.get('[data-testid="button"]').should("exist");
   });
+  it('should get username from input', ()=>{
+    const username = 'test'
+    cy.get('[data-testid="input"]').type(username)
+    cy.get('button[type="submit"]').click() 
+    cy.url().should('include', '/map')
+  })
 });
