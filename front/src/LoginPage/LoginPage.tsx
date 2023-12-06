@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { useNavigate, Navigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { setMyLocation } from "../MapPage/mapSlice";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -9,6 +9,8 @@ import Input from "../components/Input";
 import { getFakeLocations } from "./TestFakeLocation";
 import { RootState } from "../Types";
 import { connectWithIoSocket } from "../SocketConnect/SocketConnect";
+import { proceedWithLogin } from "../store/actions/LoginPageActions";
+
 
 export default function Login() {
   const [userName, setUserName] = useState("");
@@ -21,8 +23,14 @@ export default function Login() {
     timeout: 5000,
     maximumAge: 0,
   };
-
-  const handleLogin = () => {
+  const handleLogin =  () => {
+    proceedWithLogin({
+      username: userName,
+      coords: {
+        lng: myLocation?.lng,
+        lat: myLocation?.lat,
+      },
+    });
     navigate("/map");
   };
 
