@@ -1,5 +1,5 @@
 import { Socket, io } from "socket.io-client";
-import { OnlineUserHandler } from "../store/actions/UserActions";
+import { OnlineUserHandler, UserDisconnectedHandler } from "../store/actions/UserActions";
 import { dataProps,dataUserProps } from "../Types";
 
 let socket: Socket | null = null;
@@ -14,6 +14,9 @@ export const connectWithIoSocket = () => {
       OnlineUserHandler(socket.id, userData);
     }
   });
+  socket.on('user-disconnected', (disconnectedUserSocketId)=>{
+    UserDisconnectedHandler(disconnectedUserSocketId)
+  } )
 };
 
 export const login = (data: dataProps) => {

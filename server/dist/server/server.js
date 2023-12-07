@@ -38,6 +38,7 @@ server.listen(PORT, () => {
 const disconnectEventHandler = (id) => {
     console.log(`user disconnected: ${id}`);
     removeOnlineUsers(id);
+    broadcastDisconnectUsersDetail(id);
 };
 const loginEventHandler = (socket, data) => {
     socket.join("logged-users");
@@ -47,6 +48,9 @@ const loginEventHandler = (socket, data) => {
     };
     console.log(onlineUsers);
     io.to("logged-users").emit("online-users", convertOnlineUsersToArray());
+};
+const broadcastDisconnectUsersDetail = (disconnectedUserSocketId) => {
+    io.to('logged-users').emit('user-disconnected', disconnectedUserSocketId);
 };
 const removeOnlineUsers = (id) => {
     if (onlineUsers[id]) {
