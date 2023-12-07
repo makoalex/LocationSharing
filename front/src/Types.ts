@@ -13,13 +13,22 @@ export type dataProps = {
     lng: number;
   };
 };
- export type onlineUsersProps = {
-  socketId: string,
+export type dataUserProps = {
+  socketId: string;
+  username: string;
+  coords: {
+    lng: number;
+    lat: number;
+  };
+  myself?: boolean;
+};
+export type onlineUsersProps = {
+  [socketId: string]: {
     username: string;
     coords: {
       lng: number;
       lat: number;
-    
+    };
+    myself?: boolean;
   };
-  myself?:boolean
 };
