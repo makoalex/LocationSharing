@@ -1,5 +1,5 @@
 import { Socket, io } from "socket.io-client";
-import { dataProps } from '../Types';
+import { dataProps } from "../Types";
 
 let socket: Socket | null = null;
 export const connectWithIoSocket = () => {
@@ -7,10 +7,11 @@ export const connectWithIoSocket = () => {
   socket.on("connect", () => {
     console.log("connected to socket client");
   });
+  socket.on("online-users", (userData: dataProps) => {
+    console.log(userData);
+  });
 };
 
 export const login = (data: dataProps) => {
- 
-    socket!.emit("user-login", data);
-  
+  socket!.emit("user-login", data);
 };
