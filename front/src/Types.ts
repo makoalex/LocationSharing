@@ -14,11 +14,12 @@ export type dataProps = {
   };
 };
  export type onlineUsersProps = {
-  [id: string]: {
+  socketId: string,
     username: string;
     coords: {
       lng: number;
       lat: number;
-    };
+    
   };
+  myself?:boolean
 };
