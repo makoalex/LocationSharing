@@ -20,7 +20,7 @@ const io = new Server(server, {
 
 io.on("connection", (socket) => {
   console.log(`user connected of id: ${socket.id}`);
-  socket.on("user-login", (data: any) => {
+  socket.on("user-login", (data: dataProps) => {
     loginEventHandler(socket, data);
   });
 
