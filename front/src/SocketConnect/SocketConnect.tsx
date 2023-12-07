@@ -1,4 +1,5 @@
 import { Socket, io } from "socket.io-client";
+import { OnlineUserHandler } from "../store/actions/UserActions";
 import { dataProps } from "../Types";
 
 let socket: Socket | null = null;
@@ -9,6 +10,9 @@ export const connectWithIoSocket = () => {
   });
   socket.on("online-users", (userData: dataProps) => {
     console.log(userData);
+    if (socket) {
+      OnlineUserHandler(socket.id, userData);
+    }
   });
 };
 
