@@ -9,8 +9,8 @@ export interface RootState {
 export type dataProps = {
   username: string;
   coords: {
-    lat: number;
     lng: number;
+    lat: number;
   };
 };
 export type dataUserProps = {
