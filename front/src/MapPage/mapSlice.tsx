@@ -2,16 +2,21 @@ import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { dataUserProps } from "../Types";
 
 const initialState = {
-  myLocation: null,
+  myLocation: null as { lat: number; lng: number } | unknown,
   onlineUsers: [],
   cardChosenOption: null,
 };
+export interface mapState {
+  myLocation: { lat: number; lng: number };
+  onlineUsers: dataUserProps[];
+  cardChosenOption: string | null;
+}
 
 export const mapSlice = createSlice({
   name: "map",
   initialState,
   reducers: {
-    setMyLocation: (state, action) => {
+    setMyLocation: (state, action: PayloadAction<mapState["myLocation"]>) => {
       state.myLocation = action.payload;
     },
     setOnlineUsers: (state, action) => {
