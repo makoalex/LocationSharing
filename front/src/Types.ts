@@ -32,3 +32,17 @@ export type onlineUsersProps = {
     myself?: boolean;
   };
 };
+
+export interface mapState {
+  myLocation: { lat: number; lng: number };
+  onlineUsers: dataUserProps[];
+  cardChosenOption: string | null;
+}
+ export type markerProps={
+  coords:mapState["myLocation"],
+  lat:number,
+  lng:number,
+  socketId:string,
+  username:string
+  myself?:boolean
+}
