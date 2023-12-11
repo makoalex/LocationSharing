@@ -28,7 +28,7 @@ module.exports = {
         disabledButton:"#a388ee",
         secondary: "#F5F5F5ff",
         accent: "#02EAE8ff",
-        nonblue: "#0B2447",
+        darkPurple: "#9723c9",
       },
     },
   },
