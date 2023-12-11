@@ -27,8 +27,8 @@ module.exports = {
         callAction: "#a66eff",
         disabledButton:"#a388ee",
         secondary: "#F5F5F5ff",
-        accent: "#02EAE8ff",
-        darkPurple: "#9723c9",
+        accent: "#9723c9",
+
       },
     },
   },
