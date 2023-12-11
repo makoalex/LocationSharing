@@ -25,14 +25,14 @@ const fakeLocations = [
   },
   {
     coords: {
-      longitude: 31.33584,
-      latitude: 0.76126,
+      longitude: 59.919531, 
+      latitude: 10.802672,
     },
   },
   {
     coords: {
-      longitude: 37.7749295,
-      latitude: 122.4194155,
+      longitude: 59.739913,
+      latitude:10.203424,
     },
   },
 ];
