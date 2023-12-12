@@ -1,13 +1,12 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { dataUserProps } from "../Types";
-import {mapState} from '../Types'
+import { mapState } from "../Types";
 
 const initialState = {
   myLocation: null as { lat: number; lng: number } | unknown,
   onlineUsers: [],
   cardChosenOption: null,
 };
-
 
 export const mapSlice = createSlice({
   name: "map",
@@ -24,9 +23,16 @@ export const mapSlice = createSlice({
         (onlineUser: dataUserProps) => onlineUser.socketId !== action.payload
       );
     },
+    setCardChoseOption: (state, action) => {
+      state.cardChosenOption = action.payload;
+    },
   },
 });
 
-export const { setMyLocation, setOnlineUsers, removeDisconnectedUser } =
-  mapSlice.actions;
+export const {
+  setMyLocation,
+  setOnlineUsers,
+  removeDisconnectedUser,
+  setCardChoseOption,
+} = mapSlice.actions;
 export default mapSlice.reducer;
