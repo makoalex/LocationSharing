@@ -36,7 +36,7 @@ export type onlineUsersProps = {
 export interface mapState {
   myLocation: { lat: number; lng: number };
   onlineUsers: dataUserProps[];
-  cardChosenOption: string | null;
+  cardChosenOption: dataUserProps | null;
 }
  export type markerProps={
   coords:mapState["myLocation"],
@@ -46,3 +46,13 @@ export interface mapState {
   username:string
   myself?:boolean
 }
+export type userInfoCardProps = {
+  username:string,
+  socketId:string,
+  userLocation:mapState['myLocation']
+}
+
+export type labelProps = {
+  text: string;
+  className: string;
+};
