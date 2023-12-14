@@ -1,11 +1,9 @@
 import React from 'react'
 import { Socket } from 'socket.io-client';
 import chatIcon from '../../assets/chatIcon.svg'
+import { ChatButtonProps } from '../../Types'
 
-export type ChatButtonProps = {
-    socketId: string;
-    userName: string;
-}
+
 export default function ChatButton({socketId, userName}:ChatButtonProps) {
     const handleChatBox =()=>{
 

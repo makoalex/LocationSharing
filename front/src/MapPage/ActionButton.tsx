@@ -1,6 +1,6 @@
 import React from 'react'
 import ChatButton from './UserInfoCard/ChatButton'
-import { ChatButtonProps } from './UserInfoCard/ChatButton'
+import { ChatButtonProps } from '../Types'
 
 export default function ActionButton(props:ChatButtonProps) {
   return (
