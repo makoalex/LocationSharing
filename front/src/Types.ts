@@ -62,3 +62,8 @@ export type labelProps = {
   text: string;
   className: string;
 };
+
+export type ChatButtonProps = {
+  socketId: string;
+  userName: string;
+}
