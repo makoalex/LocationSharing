@@ -5,7 +5,7 @@ export default function Logo() {
     <div>
       <h3
         data-testid="logo"
-        className=" absolute top-8 left-8 font-primary text-xl font-bold"
+        className=" absolute top-8 left-8 font-primary text-2xl font-bold"
       >
         SnapMap
       </h3>
