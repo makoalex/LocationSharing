@@ -38,6 +38,12 @@ export interface mapState {
   onlineUsers: dataUserProps[];
   cardChosenOption: dataUserProps | null;
 }
+
+export interface distanceCoords{
+  coord1:mapState["myLocation"],
+  coord2:mapState["myLocation"]
+
+}
  export type markerProps={
   coords:mapState["myLocation"],
   lat:number,
