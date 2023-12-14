@@ -75,7 +75,7 @@ export default function Login() {
 
   return (
     <div className="section flex flex-row justify-center items-center w-full h-screen ">
-      <div className="container relative border-2 border-black border-b-4 flex flex-col justify-center items-center w-3/4 md:w-3/5 lg:w-2/5 h-[350px] bg-primary mx-auto">
+      <div className="container relative border-2 border-black rounded-md flex flex-col justify-center items-center shadow-[7px_7px_0px_0px_#0B2447] w-3/4 md:w-3/5 lg:w-2/5 h-[350px] bg-primary mx-auto">
         <Logo />
         <Input
           userName={userName}
