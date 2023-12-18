@@ -67,3 +67,10 @@ export type ChatButtonProps = {
   socketId: string;
   userName: string;
 }
+export interface ChatBoxInterface extends ChatButtonProps{
+  messages: string[]
+}
+export interface chatState{
+  chatBoxes:ChatBoxInterface[]
+  chatHistory:string[]
+}
