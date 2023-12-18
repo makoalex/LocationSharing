@@ -1,4 +1,5 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+import {ChatBoxInterface, chatState} from '../Types'
 
 const initialState = {
   chatBoxes: [],
@@ -6,9 +7,22 @@ const initialState = {
 };
 
 export const messengerSlice = createSlice({
-  name: "messeger",
+  name: "messenger",
   initialState,
   reducers: {
-    addChatBoxes: (state, action) => (state.chatBoxes = action.payload),
+    addCheckBoxes: (state:any, action:PayloadAction<ChatBoxInterface>) => {
+      if (
+        !state.chatBoxes.find((checkBox: ChatBoxInterface) => {
+          return checkBox.socketId === action.payload.socketId;
+        })
+      ) {
+        state.chatBoxes.push(action.payload);
+      }
+    },
+    removeChatBox:(state:any, action)=>(
+        state.chatBoxes.filter((chatBox:ChatBoxInterface)=>chatBox.socketId !==action.payload)
+    )
   },
 });
+export const { addCheckBoxes, removeChatBox } = messengerSlice.actions;
+export default messengerSlice.reducer;
