@@ -1,6 +1,6 @@
 import React from "react";
 import GoogleMapReact from "google-map-react";
-import { useSelector } from "react-redux/es/hooks/useSelector";
+import { useSelector } from "react-redux";
 import { mapState } from "../Types";
 import Marker from "./Marker";
 import UserInfoCard from "./UserInfoCard/UserInfoCard";

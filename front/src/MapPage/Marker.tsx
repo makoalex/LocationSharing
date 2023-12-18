@@ -33,7 +33,7 @@ export default function Marker(props: markerProps) {
         alt={username}
         className="w-[35px] h-[50px] hover:translate-y-2 hover:transition-all"
       />
-      <p className="font-primary text-lg text-accent">
+      <p className="font-primary text-lg">
         {myself ? "me" : username}
       </p>
     </div>
