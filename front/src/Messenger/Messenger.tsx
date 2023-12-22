@@ -1,6 +1,5 @@
 import React from 'react'
 import Chatbox from './Chatbox/Chatbox'
-import './Messenger.css'
 
 
 const dummy_chatBoxes = [
