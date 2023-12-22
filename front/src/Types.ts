@@ -64,7 +64,7 @@ export type labelProps = {
 };
 
 export type ChatButtonProps = {
-  socketId: string;
+  socketId?: string;
   userName?: string;
 }
 export interface ChatBoxInterface extends ChatButtonProps{
