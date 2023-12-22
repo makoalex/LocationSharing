@@ -65,10 +65,10 @@ export type labelProps = {
 
 export type ChatButtonProps = {
   socketId: string;
-  userName: string;
+  userName?: string;
 }
 export interface ChatBoxInterface extends ChatButtonProps{
-  messages: string[]
+  messages?: string[]
 }
 export interface chatState{
   chatBoxes:ChatBoxInterface[]
