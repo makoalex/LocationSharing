@@ -1,6 +1,5 @@
 import React from "react";
 import { ChatBoxInterface } from "../../Types";
-import "../Messenger.css";
 
 export default function Chatbox({ socketId }: ChatBoxInterface) {
   return (
