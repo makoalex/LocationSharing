@@ -4,6 +4,6 @@ import { ChatBoxInterface } from '../../Types'
 
 export default function NavbarLabel({userName}:ChatBoxInterface) {
   return (
-    <p>{userName}</p>
+    <p className='font-primary text-base text-black p-2'>{userName}</p>
   )
 }
