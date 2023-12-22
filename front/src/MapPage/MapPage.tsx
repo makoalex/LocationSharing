@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import { mapState } from "../Types";
 import Marker from "./Marker";
 import UserInfoCard from "./UserInfoCard/UserInfoCard";
+import Messenger from "../Messenger/Messenger";
 
 export default function MapPage() {
   const myLocation = useSelector(
@@ -43,6 +44,8 @@ export default function MapPage() {
     </GoogleMapReact>
   ) : null;
   return (
+    <section className="relative">
+    <Messenger/>
     <div className="W-[100wv] h-[100vh] ">
       {googleMap}
       {cardChosenOption ? (
@@ -53,5 +56,6 @@ export default function MapPage() {
         />
       ) : null}
     </div>
+    </section>
   );
 }
