@@ -6,7 +6,9 @@ import closeIcon from "../../assets/close-icon.svg"
 
 const NavbarCloseButton = ({socketId}:ChatBoxInterface) => {
     return(
-      <p className="text-lg p-2 font-primary font-bold h-7 flex flex-col justify-center items-center shadow-[3px_3px_0px_0px_#0B2447] border-2 border-black">X</p>
+        <div className="">
+      <button className="text-lg rounded-sm w-[25px] h-[25px]  bg-callAction active:bg-accent cursor-pointer  p-2 font-primary font-extrabold flex flex-col justify-center items-center shadow-[2px_2px_0px_0px_#0B2447] border-2 border-black focus:bg-accent focus:transition-all focus:duration-300 focus:shadow-none  ">X</button>
+      </div>
     )
 
 }
@@ -16,7 +18,7 @@ export default function NavbarChatBox({
   socketId,
 }: ChatBoxInterface) {
   return (
-    <div className="w-full bg-primary h-[40px] flex flex-row justify-between items-center p-4">
+    <div className="w-full h-[40px] flex flex-row justify-between items-center p-2 bg-primary  ">
       
       <NavbarLabel userName={userName} />
       <NavbarCloseButton socketId={socketId}/>

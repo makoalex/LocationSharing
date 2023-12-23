@@ -44,9 +44,9 @@ export default function MapPage() {
     </GoogleMapReact>
   ) : null;
   return (
-    <section className="relative">
+    <section className="relative ">
     <Messenger/>
-    <div className="W-[100wv] h-[100vh] ">
+    <div className="W-[100wv] h-screen ">
       {googleMap}
       {cardChosenOption ? (
         <UserInfoCard
