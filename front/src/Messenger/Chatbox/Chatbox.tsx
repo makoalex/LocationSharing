@@ -7,7 +7,7 @@ import NewMessages from "./NewMessages";
 export default function Chatbox({ socketId, userName }: ChatBoxInterface) {
   return (
     <section className="flex flex-col">
-      <div className="w-[300px] h-[400px] flex flex-col justify-between bg-secondary border-black border-2 border-t-0 border-r-4">
+      <div className="w-[270px] h-[450px] flex flex-col justify-between bg-secondary border-black border-2  border-r-4">
         <NavbarChatBox socketId={socketId} userName={userName}/>
         <Messages socketId={socketId} />
         <NewMessages socketId={socketId} />
