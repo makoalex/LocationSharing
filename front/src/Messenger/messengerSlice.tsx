@@ -19,9 +19,14 @@ export const messengerSlice = createSlice({
         state.chatBoxes.push(action.payload);
       }
     },
-    removeChatBox:(state:any, action)=>(
-        state.chatBoxes.filter((chatBox:ChatBoxInterface)=>chatBox.socketId !==action.payload)
-    )
+    removeChatBox: (state: any, action) => {
+      return {
+        ...state,
+        chatBoxes: state.chatBoxes.filter(
+          (chatBox: ChatBoxInterface) => chatBox.socketId !== action.payload
+        ),
+      };
+    },
   },
 });
 export const { addCheckBoxes, removeChatBox } = messengerSlice.actions;
