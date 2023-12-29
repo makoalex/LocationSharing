@@ -1,11 +1,15 @@
 import React from 'react'
 import { Socket } from 'socket.io-client';
+import { useDispatch } from 'react-redux';
 import chatIcon from '../../assets/chatIcon.svg'
 import { ChatButtonProps } from '../../Types'
+import { addCheckBoxes } from '../../Messenger/messengerSlice';
 
 
 export default function ChatButton({socketId, userName}:ChatButtonProps) {
+  const dispatch= useDispatch();
     const handleChatBox =()=>{
+      dispatch(addCheckBoxes({socketId, userName}))
 
     }
   return (
