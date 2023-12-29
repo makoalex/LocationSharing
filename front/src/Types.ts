@@ -74,3 +74,8 @@ export interface chatState{
   chatBoxes:ChatBoxInterface[]
   chatHistory:string[]
 }
+ export interface ISingleMessage{
+  id?:number,
+  myMessage?:boolean,
+  content:string
+}
