@@ -70,12 +70,15 @@ export type ChatButtonProps = {
 export interface ChatBoxInterface extends ChatButtonProps{
   messages?: string[]
 }
-export interface chatState{
-  chatBoxes:ChatBoxInterface[]
-  chatHistory:string[]
-}
- export interface ISingleMessage{
-  id?:number,
+export interface ISingleMessage{
+  socketId?:string,
+  id?:string,
   myMessage?:boolean,
   content:string
 }
+export interface chatState{
+  chatBoxes:ChatBoxInterface[]
+  chatHistory:Record<string,ISingleMessage[]>
+}
+
+

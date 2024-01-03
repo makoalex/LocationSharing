@@ -1,6 +1,8 @@
 import React from "react";
 import { ChatBoxInterface } from "../../Types";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { sendChatMessage } from "../../store/actions/MessengerActions";
 
 export default function NewMessages({ socketId }: ChatBoxInterface) {
   const [message, setMessage] = useState('')
@@ -15,7 +17,8 @@ export default function NewMessages({ socketId }: ChatBoxInterface) {
     }
   }
   const proceedChatMessage = ()=>{
-    console.log('Message sent to receiver')
+  sendChatMessage(message, socketId!)
+    
   }
 
   return (
