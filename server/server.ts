@@ -1,8 +1,8 @@
 import express from "express";
 import cors from "cors";
-import { Server } from "socket.io";
+import { Server, Socket } from "socket.io";
 import { createServer } from "node:http";
-import { dataProps, onlineUsersProps } from "../front/src/Types";
+import { dataProps, onlineUsersProps, IMessage } from "../front/src/Types";
 
 const app = express();
 app.use(cors());
@@ -24,6 +24,10 @@ io.on("connection", (socket) => {
     loginEventHandler(socket, data);
   });
 
+  socket.on("chat-message", (data: IMessage) => {
+    chatMessageHandler(socket, data);
+  });
+
   socket.on("disconnect", () => {
     disconnectEventHandler(socket.id);
   });
@@ -38,11 +42,28 @@ server.listen(PORT, () => {
 });
 
 //handlers
+
+//  sending message handler
+const chatMessageHandler = (socket: Socket, data: IMessage) => {
+  const { receiverSocketId, content, id } = data;
+  console.log(" this is data in chatMessageHandler", data);
+  if (onlineUsers[receiverSocketId]) {
+    socket.to(receiverSocketId).emit("chat-message", {
+      senderSocketId: socket.id,
+      content,
+      id,
+    });
+  }
+};
+
 const disconnectEventHandler = (id: string) => {
   console.log(`user disconnected: ${id}`);
   removeOnlineUsers(id);
-  broadcastDisconnectUsersDetail(id)};
-const loginEventHandler = (socket, data: dataProps) => {
+  broadcastDisconnectUsersDetail(id);
+};
+
+
+const loginEventHandler = (socket: Socket, data: dataProps) => {
   socket.join("logged-users");
   onlineUsers[socket.id] = {
     username: data.username,
@@ -51,9 +72,10 @@ const loginEventHandler = (socket, data: dataProps) => {
   console.log(onlineUsers);
   io.to("logged-users").emit("online-users", convertOnlineUsersToArray());
 };
- const broadcastDisconnectUsersDetail= (disconnectedUserSocketId:string)=>{
-  io.to('logged-users').emit('user-disconnected',disconnectedUserSocketId)
- }
+
+const broadcastDisconnectUsersDetail = (disconnectedUserSocketId: string) => {
+  io.to("logged-users").emit("user-disconnected", disconnectedUserSocketId);
+};
 
 const removeOnlineUsers = (id: string) => {
   if (onlineUsers[id]) {
