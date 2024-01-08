@@ -81,4 +81,10 @@ export interface chatState{
   chatHistory:Record<string,ISingleMessage[]>
 }
 
+export interface IMessage{
+  receiverSocketId:string,
+  content:string,
+  id:string
+}
+
 

@@ -1,14 +1,18 @@
 import {v4 as uuid} from 'uuid';
-import { ISingleMessage } from '../../Types';
+import { IMessage } from '../../Types';
 import store from '../store';
 import { addChatMessage } from '../../Messenger/messengerSlice';
+import * as socketConnect from '../../SocketConnect/SocketConnect'
 
 export const sendChatMessage =(content:string, receiverSocketId:string, )=>{
-    const message = {
+    const message:IMessage = {
         receiverSocketId,
         content,
         id:uuid(),
     }
+
+    //create here socket connection to emit message to another user
+    socketConnect.sendChatMessage(message)
 
     store.dispatch(
         addChatMessage({
