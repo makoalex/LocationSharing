@@ -83,6 +83,7 @@ export interface chatState{
 
 export interface IMessage{
   receiverSocketId:string,
+  senderSocketId?:string,
   content:string,
   id:string
 }
