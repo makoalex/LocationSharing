@@ -6,10 +6,10 @@ import { ChatButtonProps } from '../../Types'
 import { addCheckBoxes } from '../../Messenger/messengerSlice';
 
 
-export default function ChatButton({socketId, userName}:ChatButtonProps) {
+export default function ChatButton({socketId, username}:ChatButtonProps) {
   const dispatch= useDispatch();
     const handleChatBox =()=>{
-      dispatch(addCheckBoxes({socketId, userName}))
+      dispatch(addCheckBoxes({socketId, username}))
 
     }
   return (
