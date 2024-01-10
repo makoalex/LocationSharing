@@ -4,7 +4,7 @@ import { mapState } from "../Types";
 
 const initialState = {
   myLocation: null as { lat: number; lng: number } | unknown,
-  onlineUsers: [],
+  onlineUsers: [] as dataUserProps[],
   cardChosenOption: null,
 };
 
