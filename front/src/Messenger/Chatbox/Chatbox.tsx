@@ -4,11 +4,11 @@ import NavbarChatBox from "./NavbarChatBox";
 import Messages from "./Messages";
 import NewMessages from "./NewMessages";
 
-export default function Chatbox({ socketId, userName }: ChatBoxInterface) {
+export default function Chatbox({ socketId, username }: ChatBoxInterface) {
   return (
     <section className="flex flex-col">
       <div className="w-[270px] h-[300px] flex flex-col justify-between bg-secondary border-black border-2  border-r-4  ">
-        <NavbarChatBox socketId={socketId} userName={userName}/>
+        <NavbarChatBox socketId={socketId} username={username}/>
         <Messages socketId={socketId} />
         <NewMessages socketId={socketId} />
       </div>

@@ -24,12 +24,12 @@ const NavbarCloseButton = ({ socketId }: ChatBoxInterface) => {
 };
 
 export default function NavbarChatBox({
-  userName,
+  username,
   socketId,
 }: ChatBoxInterface) {
   return (
     <div className="w-full h-[40px] flex flex-row justify-between items-center p-2 bg-primary  ">
-      <NavbarLabel userName={userName} />
+      <NavbarLabel username={username} />
       <NavbarCloseButton socketId={socketId} />
     </div>
   );
