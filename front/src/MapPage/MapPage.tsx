@@ -1,12 +1,15 @@
 import React from "react";
+import { useEffect } from "react";
 import GoogleMapReact from "google-map-react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { setOnlineUsers } from "./mapSlice";
 import { mapState } from "../Types";
 import Marker from "./Marker";
 import UserInfoCard from "./UserInfoCard/UserInfoCard";
 import Messenger from "../Messenger/Messenger";
 
 export default function MapPage() {
+  const dispatch = useDispatch();
   const myLocation = useSelector(
     (state: { map: mapState }) => state.map.myLocation
   );
@@ -24,6 +27,17 @@ export default function MapPage() {
     },
     zoom: 5,
   };
+  let storedOnlineUsers = []
+
+  useEffect(() => {
+    storedOnlineUsers = JSON.parse(localStorage.getItem("onlineUsers") || "[]");
+    console.log("Stored Online Users:", storedOnlineUsers);
+    dispatch(setOnlineUsers(storedOnlineUsers));
+
+
+
+  }, [dispatch]);
+
   const googleMap = process.env.REACT_APP_GOOGLE_MAPS_API_KEY ? (
     <GoogleMapReact
       bootstrapURLKeys={{ key: process.env.REACT_APP_GOOGLE_MAPS_API_KEY }}
