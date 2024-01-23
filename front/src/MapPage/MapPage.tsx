@@ -25,7 +25,7 @@ export default function MapPage() {
       lat: myLocation?.lat || 0,
       lng: myLocation?.lng || 0,
     },
-    zoom: 5,
+    zoom: 4,
   };
   let storedOnlineUsers = []
 
