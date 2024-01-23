@@ -76,16 +76,8 @@ export interface ISingleMessage{
   myMessage?:boolean,
   content:string
 }
-export interface chatState{
-  chatBoxes:ChatBoxInterface[]
-  chatHistory:Record<string,ISingleMessage[]>
+
+export interface IRoom {
+  id: string;
+  users: string[];
 }
-
-export interface IMessage{
-  receiverSocketId:string,
-  senderSocketId?:string,
-  content:string,
-  id:string
-}
-
-

@@ -17,11 +17,13 @@ export const mapSlice = createSlice({
     },
     setOnlineUsers: (state, action) => {
       state.onlineUsers = action.payload;
+      localStorage.setItem("onlineUsers", JSON.stringify(action.payload));
     },
     removeDisconnectedUser: (state, action: PayloadAction<string>) => {
       state.onlineUsers = state.onlineUsers.filter(
         (onlineUser: dataUserProps) => onlineUser.socketId !== action.payload
       );
+      localStorage.setItem("onlineUsers", JSON.stringify(state.onlineUsers));
     },
     setCardChoseOption: (state, action) => {
       state.cardChosenOption = action.payload;
