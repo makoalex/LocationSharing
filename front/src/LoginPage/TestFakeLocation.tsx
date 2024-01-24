@@ -7,32 +7,27 @@ const fakeLocations = [
   },
   {
     coords: {
-      longitude: 14.55563,
-      latitude: -27.6068,
-    },
-  },
-  {
-    coords: {
-      longitude: 158.13075,
-      latitude: -33.87379,
-    },
-  },
-  {
-    coords: {
       longitude: -0.118092,
       latitude: 51.509865,
     },
   },
+
   {
     coords: {
-      longitude: 59.919531, 
-      latitude: 10.802672,
+      longitude: 26.096306,
+      latitude: 44.439663,
     },
   },
   {
     coords: {
-      longitude: 59.739913,
-      latitude:10.203424,
+      longitude: 10.757933,
+      latitude: 59.911491,
+    },
+  },
+  {
+    coords: {
+      longitude: 10.8025856,
+      latitude: 59.9195123,
     },
   },
 ];
