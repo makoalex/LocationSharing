@@ -67,6 +67,10 @@ export type ChatButtonProps = {
   socketId?: string;
   username?: string;
 }
+export interface chatState{
+  chatBoxes:ChatBoxInterface[]
+  chatHistory:Record<string, ISingleMessage[]>
+}
 export interface ChatBoxInterface extends ChatButtonProps{
   messages?: string[]
 }
@@ -75,6 +79,13 @@ export interface ISingleMessage{
   id?:string,
   myMessage?:boolean,
   content:string
+}
+export interface IMessage {
+  receiverSocketId: string;
+  senderSocketId?: string;
+  content: string;
+  id: string;
+
 }
 
 export interface IRoom {
