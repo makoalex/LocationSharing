@@ -8,7 +8,7 @@ import videoRoomReducer from "../realTimeCommunication/videoRoomSlice";
   reducer: {
     map:mapReducer,
     messenger:messengerReducer,
-    videoRoom:videoRoomReducer,
+    videoRooms:videoRoomReducer,
   },
 });
 export default store;
