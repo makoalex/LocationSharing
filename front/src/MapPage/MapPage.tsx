@@ -7,6 +7,7 @@ import { mapState } from "../Types";
 import Marker from "./Marker";
 import UserInfoCard from "./UserInfoCard/UserInfoCard";
 import Messenger from "../Messenger/Messenger";
+import VideoRoom from "../VideoRooms/VideoRoom";
 
 type Location = {
   lat: number;
@@ -126,6 +127,7 @@ export default function MapPage() {
       <Messenger />
       <div className="W-[100wv] h-screen ">
         {googleMap}
+        <VideoRoom/>
         {cardChosenOption ? (
           <UserInfoCard
             username={cardChosenOption.username}
