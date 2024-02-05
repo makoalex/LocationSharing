@@ -3,22 +3,12 @@ import { useSelector } from "react-redux";
 import store from "../store/store";
 import CreateRoomButton from "./CreateRoomButton";
 import RoomJoinedButton from "./RoomJoinedButton";
+import { IRoomInfo, RoomState } from "../Types";
 
-interface RoomState {
-  inRoom: string;
-  rooms: string[];
-}
-interface IParticipants {
-  socketId: string;
-  peerId: number;
-  username: string;
-}
-interface IRoom {
-  id: number;
-  participants: IParticipants[];
-}
 
-const DummyRooms: IRoom[] = [
+
+
+const DummyRooms: IRoomInfo[] = [
   {
     id: 1,
     participants: [
@@ -44,7 +34,7 @@ const DummyRooms: IRoom[] = [
 export const RoomList = () => {
   // const rooms = useSelector((state:{room:RoomState})=>state.room.rooms)
   return (
-    <div className="flex float-col justify-between w-screen h-[60px]">
+    <div className="flex flex-row-reverse w-screen absolute bottom-7 mr-11 right-11 gap-3 ">
       <CreateRoomButton />
       {DummyRooms.map((room) => (
         <RoomJoinedButton

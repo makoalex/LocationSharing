@@ -35,3 +35,8 @@ export const login = (data: dataProps) => {
 export const sendChatMessage = (data: IMessage) => {
   socket!.emit("chat-message", data);
 };
+
+export const  createVideoRoom=(data:any) =>{
+  socket!.emit('video-room-create',data)
+
+}

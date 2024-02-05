@@ -28,6 +28,10 @@ io.on("connection", (socket) => {
     chatMessageHandler(socket, data);
   });
 
+  socket.on('video-room-create', (data: {peerId:number, newRoomId:string})=>{
+    videoRoomCreateHandler(socket, data)
+  })
+
   socket.on("disconnect", () => {
     disconnectEventHandler(socket.id);
   });
@@ -95,3 +99,7 @@ const convertOnlineUsersToArray = () => {
   });
   return onlineUsersArray;
 };
+
+const videoRoomCreateHandler= (socket:Socket, data:{peerId:number, newRoomId:string})=>{
+  console.log('new room created', data);
+}

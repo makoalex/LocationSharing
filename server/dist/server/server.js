@@ -27,6 +27,9 @@ io.on("connection", (socket) => {
     socket.on("chat-message", (data) => {
         chatMessageHandler(socket, data);
     });
+    socket.on('video-room-create', (data) => {
+        videoRoomCreateHandler(socket, data);
+    });
     socket.on("disconnect", () => {
         disconnectEventHandler(socket.id);
     });
@@ -83,5 +86,8 @@ const convertOnlineUsersToArray = () => {
         });
     });
     return onlineUsersArray;
+};
+const videoRoomCreateHandler = (socket, data) => {
+    console.log('new room created', data);
 };
 //# sourceMappingURL=server.js.map
