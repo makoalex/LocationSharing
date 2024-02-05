@@ -44,7 +44,7 @@ const DummyRooms: IRoom[] = [
 export const RoomList = () => {
   // const rooms = useSelector((state:{room:RoomState})=>state.room.rooms)
   return (
-    <div className="flex float-col justify-between w-screen h-[60px]">
+    <div className="flex flex-row-reverse w-screen absolute bottom-7 mr-11 right-11 gap-3 ">
       <CreateRoomButton />
       {DummyRooms.map((room) => (
         <RoomJoinedButton
