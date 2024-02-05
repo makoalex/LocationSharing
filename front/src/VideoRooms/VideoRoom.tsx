@@ -3,22 +3,12 @@ import { useSelector } from "react-redux";
 import store from "../store/store";
 import CreateRoomButton from "./CreateRoomButton";
 import RoomJoinedButton from "./RoomJoinedButton";
+import { IRoomInfo, RoomState } from "../Types";
 
-interface RoomState {
-  inRoom: string;
-  rooms: string[];
-}
-interface IParticipants {
-  socketId: string;
-  peerId: number;
-  username: string;
-}
-interface IRoom {
-  id: number;
-  participants: IParticipants[];
-}
 
-const DummyRooms: IRoom[] = [
+
+
+const DummyRooms: IRoomInfo[] = [
   {
     id: 1,
     participants: [

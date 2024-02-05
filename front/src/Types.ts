@@ -87,8 +87,22 @@ export interface IMessage {
   id: string;
 
 }
-
+// Room
+export interface RoomState {
+  inRoom: string;
+  rooms: string[];
+}
 export interface IRoom {
   id: string;
   users: string[];
+}
+
+export interface IParticipants {
+  socketId: string;
+  peerId: number;
+  username: string;
+}
+export interface IRoomInfo {
+  id: number;
+  participants: IParticipants[];
 }
