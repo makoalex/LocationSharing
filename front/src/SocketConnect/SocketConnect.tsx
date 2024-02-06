@@ -3,7 +3,7 @@ import {
   OnlineUserHandler,
   UserDisconnectedHandler,
 } from "../store/actions/UserActions";
-import { IMessage, dataProps, dataUserProps, IParticipants } from "../Types";
+import { IMessage, dataProps, dataUserProps, IParticipants, IRoomCreate } from "../Types";
 import { chatMessageHandler } from "../store/actions/MessengerActions";
 
 let socket: Socket | null = null;
@@ -26,7 +26,7 @@ export const connectWithIoSocket = () => {
       chatMessageHandler(messageData);
     }
   });
-  socket.on('video-rooms', (videoRooms: IParticipants)=>{
+  socket.on('video-rooms', (videoRooms: IRoomCreate)=>{
     console.log('list of rooms',videoRooms)
   })
 };
@@ -39,8 +39,9 @@ export const sendChatMessage = (data: IMessage) => {
   socket!.emit("chat-message", data);
 };
 
-export const  createVideoRoom=(data:any) =>{
+export const  createVideoRoom=(data:IRoomCreate) =>{
   socket!.emit('video-room-create',data)
+  console.log('create room',data)
 
 }
 

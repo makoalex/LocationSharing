@@ -55,7 +55,7 @@ const videoRoomCreateHandler = (socket, data) => {
             ]
         };
     }
-    broadcastVideoRooms();
+    broadcastVideoRooms(data);
     console.log('new room created', data);
 };
 //  sending message handler
@@ -87,8 +87,9 @@ const loginEventHandler = (socket, data) => {
 const broadcastDisconnectUsersDetail = (disconnectedUserSocketId) => {
     io.to("logged-users").emit("user-disconnected", disconnectedUserSocketId);
 };
-const broadcastVideoRooms = () => {
+const broadcastVideoRooms = (videoRooms) => {
     io.emit('video-rooms', videoRooms);
+    console.log('videoRooms', videoRooms);
 };
 const removeOnlineUsers = (id) => {
     if (onlineUsers[id]) {

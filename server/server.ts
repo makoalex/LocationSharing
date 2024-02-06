@@ -2,7 +2,7 @@ import express from "express";
 import cors from "cors";
 import { Server, Socket } from "socket.io";
 import { createServer } from "node:http";
-import { dataProps, onlineUsersProps, IMessage } from "../front/src/Types";
+import { dataProps, onlineUsersProps, IMessage, IRoomCreate } from "../front/src/Types";
 
 const app = express();
 app.use(cors());
@@ -48,7 +48,7 @@ server.listen(PORT, () => {
 
 //handlers
 
-const videoRoomCreateHandler= (socket:Socket, data:{peerId:number, newRoomId:string})=>{
+const videoRoomCreateHandler= (socket:Socket, data:IRoomCreate)=>{
   const {peerId, newRoomId} = data;
   if(videoRooms[newRoomId]){
     videoRooms[newRoomId]={
@@ -61,7 +61,7 @@ const videoRoomCreateHandler= (socket:Socket, data:{peerId:number, newRoomId:str
       ]
     }
   }
-  broadcastVideoRooms()
+  broadcastVideoRooms(data)
   console.log('new room created', data);
 }
 
@@ -100,8 +100,9 @@ const broadcastDisconnectUsersDetail = (disconnectedUserSocketId: string) => {
 };
 
 
-const broadcastVideoRooms = () =>{
+const broadcastVideoRooms = (videoRooms:IRoomCreate) =>{
   io.emit('video-rooms', videoRooms)
+  console.log('videoRooms', videoRooms);
   
 }
 
