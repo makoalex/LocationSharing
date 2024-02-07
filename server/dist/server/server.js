@@ -28,7 +28,7 @@ io.on("connection", (socket) => {
     socket.on("chat-message", (data) => {
         chatMessageHandler(socket, data);
     });
-    socket.on('video-room-create', (data) => {
+    socket.on("video-room-create", (data) => {
         videoRoomCreateHandler(socket, data);
     });
     socket.on("disconnect", () => {
@@ -42,23 +42,15 @@ server.listen(PORT, () => {
     console.log(`server is running on port ${PORT}`);
 });
 //handlers
-const videoRoomCreateHandler = (socket, data) => {
-    const { peerId, newRoomId } = data;
-    if (videoRooms[newRoomId]) {
-        videoRooms[newRoomId] = {
-            participants: [
-                {
-                    socketId: socket.id,
-                    username: onlineUsers[socket.id].username,
-                    peerId
-                }
-            ]
-        };
-    }
-    broadcastVideoRooms(data);
-    console.log('new room created', data);
+const loginEventHandler = (socket, data) => {
+    socket.join("logged-users");
+    onlineUsers[socket.id] = {
+        username: data.username,
+        coords: data.coords,
+    };
+    console.log(onlineUsers);
+    io.to("logged-users").emit("online-users", convertOnlineUsersToArray());
 };
-//  sending message handler
 const chatMessageHandler = (socket, data) => {
     const { receiverSocketId, content, id } = data;
     console.log(" this is data in chatMessageHandler", data);
@@ -70,26 +62,34 @@ const chatMessageHandler = (socket, data) => {
         });
     }
 };
+const videoRoomCreateHandler = (socket, data) => {
+    const { peerId, newRoomId } = data;
+    // adding new room
+    videoRooms[newRoomId] = {
+        participants: [
+            {
+                socketId: socket.id,
+                username: onlineUsers[socket.id].username,
+                peerId,
+            },
+        ],
+    };
+    broadcastVideoRooms();
+    console.log("new room created", data);
+};
 const disconnectEventHandler = (id) => {
+    2;
     console.log(`user disconnected: ${id}`);
     removeOnlineUsers(id);
     broadcastDisconnectUsersDetail(id);
 };
-const loginEventHandler = (socket, data) => {
-    socket.join("logged-users");
-    onlineUsers[socket.id] = {
-        username: data.username,
-        coords: data.coords,
-    };
-    console.log(onlineUsers);
-    io.to("logged-users").emit("online-users", convertOnlineUsersToArray());
-};
+//  helper functions
 const broadcastDisconnectUsersDetail = (disconnectedUserSocketId) => {
     io.to("logged-users").emit("user-disconnected", disconnectedUserSocketId);
 };
-const broadcastVideoRooms = (videoRooms) => {
-    io.emit('video-rooms', videoRooms);
-    console.log('videoRooms', videoRooms);
+const broadcastVideoRooms = () => {
+    io.emit("video-rooms", videoRooms);
+    console.log("videoRooms", videoRooms);
 };
 const removeOnlineUsers = (id) => {
     if (onlineUsers[id]) {
