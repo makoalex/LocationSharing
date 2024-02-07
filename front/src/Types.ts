@@ -106,3 +106,8 @@ export interface IRoomInfo {
   id: number;
   participants: IParticipants[];
 }
+
+export interface IRoomCreate{
+  peerId:number,
+  newRoomId:string
+}

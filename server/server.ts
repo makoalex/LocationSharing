@@ -2,12 +2,18 @@ import express from "express";
 import cors from "cors";
 import { Server, Socket } from "socket.io";
 import { createServer } from "node:http";
-import { dataProps, onlineUsersProps, IMessage } from "../front/src/Types";
+import {
+  dataProps,
+  onlineUsersProps,
+  IMessage,
+  IRoomCreate,
+} from "../front/src/Types";
 
 const app = express();
 app.use(cors());
 const server = createServer(app);
 const PORT = process.env.PORT || 3003;
+
 let onlineUsers: onlineUsersProps = {};
 let videoRooms = {};
 
@@ -29,9 +35,9 @@ io.on("connection", (socket) => {
     chatMessageHandler(socket, data);
   });
 
-  socket.on('video-room-create', (data: {peerId:number, newRoomId:string})=>{
-    videoRoomCreateHandler(socket, data)
-  })
+  socket.on("video-room-create", (data: any) => {
+    videoRoomCreateHandler(socket, data);
+  });
 
   socket.on("disconnect", () => {
     disconnectEventHandler(socket.id);
@@ -48,24 +54,16 @@ server.listen(PORT, () => {
 
 //handlers
 
-const videoRoomCreateHandler= (socket:Socket, data:{peerId:number, newRoomId:string})=>{
-  const {peerId, newRoomId} = data;
-  if(videoRooms[newRoomId]){
-    videoRooms[newRoomId]={
-      participants:[
-        {
-          socketId:socket.id,
-          username:onlineUsers[socket.id].username,
-          peerId
-        }
-      ]
-    }
-  }
-  broadcastVideoRooms()
-  console.log('new room created', data);
-}
+const loginEventHandler = (socket: Socket, data: dataProps) => {
+  socket.join("logged-users");
+  onlineUsers[socket.id] = {
+    username: data.username,
+    coords: data.coords,
+  };
+  console.log(onlineUsers);
+  io.to("logged-users").emit("online-users", convertOnlineUsersToArray());
+};
 
-//  sending message handler
 const chatMessageHandler = (socket: Socket, data: IMessage) => {
   const { receiverSocketId, content, id } = data;
   console.log(" this is data in chatMessageHandler", data);
@@ -78,33 +76,40 @@ const chatMessageHandler = (socket: Socket, data: IMessage) => {
   }
 };
 
+const videoRoomCreateHandler = (socket: Socket, data: IRoomCreate) => {
+  const { peerId, newRoomId } = data;
+  // adding new room
+  videoRooms[newRoomId] = {
+    participants: [
+      {
+        socketId: socket.id,
+        username: onlineUsers[socket.id].username,
+        peerId,
+      },
+    ],
+  };
+
+  broadcastVideoRooms();
+  console.log("new room created", data);
+};
+
 const disconnectEventHandler = (id: string) => {
+  2;
   console.log(`user disconnected: ${id}`);
   removeOnlineUsers(id);
   broadcastDisconnectUsersDetail(id);
 };
 
-
-const loginEventHandler = (socket: Socket, data: dataProps) => {
-  socket.join("logged-users");
-  onlineUsers[socket.id] = {
-    username: data.username,
-    coords: data.coords,
-  };
-  console.log(onlineUsers);
-  io.to("logged-users").emit("online-users", convertOnlineUsersToArray());
-};
+//  helper functions
 
 const broadcastDisconnectUsersDetail = (disconnectedUserSocketId: string) => {
   io.to("logged-users").emit("user-disconnected", disconnectedUserSocketId);
 };
 
-
-const broadcastVideoRooms = () =>{
-  io.emit('video-rooms', videoRooms)
-  
-}
-
+const broadcastVideoRooms = () => {
+  io.emit("video-rooms", videoRooms);
+  console.log("videoRooms", videoRooms);
+};
 
 const removeOnlineUsers = (id: string) => {
   if (onlineUsers[id]) {
@@ -124,4 +129,3 @@ const convertOnlineUsersToArray = () => {
   });
   return onlineUsersArray;
 };
-

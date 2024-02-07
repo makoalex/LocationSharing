@@ -3,10 +3,7 @@ import { useSelector } from "react-redux";
 import store from "../store/store";
 import CreateRoomButton from "./CreateRoomButton";
 import RoomJoinedButton from "./RoomJoinedButton";
-import { IRoomInfo, RoomState } from "../Types";
-
-
-
+import { IRoomInfo } from "../Types";
 
 const DummyRooms: IRoomInfo[] = [
   {
@@ -32,7 +29,12 @@ const DummyRooms: IRoomInfo[] = [
 ];
 
 export const RoomList = () => {
-  // const rooms = useSelector((state:{room:RoomState})=>state.room.rooms)
+  
+  const rooms = useSelector(
+    (store: { videoRooms: { rooms: IRoomInfo[] } }) => store.videoRooms.rooms
+  );
+  console.log("rooms", rooms);
+
   return (
     <div className="flex flex-row-reverse w-screen absolute bottom-7 mr-11 right-11 gap-3 ">
       <CreateRoomButton />
