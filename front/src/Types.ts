@@ -101,9 +101,10 @@ export interface IParticipants {
   socketId: string;
   peerId: number;
   username: string;
+  
 }
 export interface IRoomInfo {
-  id: number;
+  id: string;
   participants: IParticipants[];
 }
 

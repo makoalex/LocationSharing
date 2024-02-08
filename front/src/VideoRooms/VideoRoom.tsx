@@ -3,33 +3,62 @@ import { useSelector } from "react-redux";
 import store from "../store/store";
 import CreateRoomButton from "./CreateRoomButton";
 import RoomJoinedButton from "./RoomJoinedButton";
-import { IRoomInfo } from "../Types";
+import { IParticipants, IRoomInfo } from "../Types";
 
-const DummyRooms: IRoomInfo[] = [
-  {
-    id: 1,
-    participants: [
-      {
-        socketId: "1",
-        peerId: 1,
-        username: "Mako",
-      },
-    ],
-  },
-  {
-    id: 2,
-    participants: [
-      {
-        socketId: "2",
-        peerId: 2,
-        username: "John",
-      },
-    ],
-  },
-];
+// const DummyRooms: IRoomInfo[] = [
+//   {
+//     id: 1,
+//     participants: [
+//       {
+//         socketId: "1",
+//         peerId: 1,
+//         username: "Mako",
+//       },
+//     ],
+//   },
+//   {
+//     id: 2,
+//     participants: [
+//       {
+//         socketId: "2",
+//         peerId: 2,
+//         username: "John",
+//       },
+//     ],
+//   },
+// ];
+
+export interface IRoomToDisplay {
+  creatorUsername: string;
+  id: string;
+  amountOfParticipants: number;
+  participants?: IParticipants[];
+
+}
+
+const convertRoomsToArray = (VideRooms: IRoomInfo[]) => {
+  const rooms: IRoomToDisplay[] = [];
+  Object.entries(VideRooms).forEach(([key, value]) =>{
+    rooms.push({
+      id: key,
+      creatorUsername: value.participants[0].username,
+      amountOfParticipants: value.participants.length,
+    })
+  }
+
+  )
+  // for (const [key, value] of Object.entries(VideRooms)) {
+  //   rooms.push({
+  //     id: key,
+  //     creatorUsername: value.participants[0].username,
+  //     amountOfParticipants: value.participants.length,
+  //   });
+  // }
+  // return rooms;
+  return rooms
+}
 
 export const RoomList = () => {
-  
   const rooms = useSelector(
     (store: { videoRooms: { rooms: IRoomInfo[] } }) => store.videoRooms.rooms
   );
@@ -38,12 +67,12 @@ export const RoomList = () => {
   return (
     <div className="flex flex-row-reverse w-screen absolute bottom-7 mr-11 right-11 gap-3 ">
       <CreateRoomButton />
-      {DummyRooms.map((room) => (
+      {convertRoomsToArray(rooms).map((room) => (
         <RoomJoinedButton
           key={room.id}
-          creatorUsername={room.participants[0].username}
+          creatorUsername={room.creatorUsername}
           roomId={room.id}
-          amountOfParticipants={room.participants.length}
+          amountOfParticipants={room.amountOfParticipants}
         />
       ))}
     </div>
