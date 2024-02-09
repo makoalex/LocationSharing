@@ -10,5 +10,11 @@ import videoRoomReducer from "../realTimeCommunication/videoRoomSlice";
     messenger:messengerReducer,
     videoRooms:videoRoomReducer,
   },
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware({
+    serializableCheck: {
+      // ignoreActions:["videoRoom/setLocalStream","videoRoom/setRemoteStream"],
+      ignoredPaths: ["videoRooms.localStream","videoRooms.remoteStream"],
+    }
+  })
 });
 export default store;

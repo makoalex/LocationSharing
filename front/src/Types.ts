@@ -91,6 +91,8 @@ export interface IMessage {
 export interface RoomState {
   inRoom: string;
   rooms: string[];
+  localStream?: MediaStream | null;
+  remoteStream?: MediaStream | null;
 }
 export interface IRoom {
   id: string;
