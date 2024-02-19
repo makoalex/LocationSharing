@@ -6,14 +6,13 @@ import { setLocalStream } from "./videoRoomSlice";
     try{
          localStream= await navigator.mediaDevices.getUserMedia({
             audio:true,
-            video:{
-                facingMode:"user"
-            }
+            video:true,
 
         })
         if(localStream){
             console.log("localStream",localStream);
-            store.dispatch(setLocalStream(localStream))
+            const streamId= localStream.id
+            store.dispatch(setLocalStream(streamId))
         }
         return Boolean(localStream)
 
