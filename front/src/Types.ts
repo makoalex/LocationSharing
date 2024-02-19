@@ -89,6 +89,7 @@ export interface IMessage {
 }
 // Room
 export interface RoomState {
+  videoRooms: any;
   inRoom: string;
   rooms: string[];
   localStream?: MediaStream | null;
