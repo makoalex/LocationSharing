@@ -4,29 +4,9 @@ import store from "../store/store";
 import CreateRoomButton from "./CreateRoomButton";
 import RoomJoinedButton from "./RoomJoinedButton";
 import { IParticipants, IRoomInfo } from "../Types";
+import ParticipantsVideos from "./ParticipantsVideos";
 
-// const DummyRooms: IRoomInfo[] = [
-//   {
-//     id: 1,
-//     participants: [
-//       {
-//         socketId: "1",
-//         peerId: 1,
-//         username: "Mako",
-//       },
-//     ],
-//   },
-//   {
-//     id: 2,
-//     participants: [
-//       {
-//         socketId: "2",
-//         peerId: 2,
-//         username: "John",
-//       },
-//     ],
-//   },
-// ];
+
 
 export interface IRoomToDisplay {
   creatorUsername: string;
@@ -83,6 +63,9 @@ export default function VideoRoom() {
   return (
     <div>
       <RoomList />
+      {/* participants component   */}
+      <ParticipantsVideos/>
+
     </div>
   );
 }
