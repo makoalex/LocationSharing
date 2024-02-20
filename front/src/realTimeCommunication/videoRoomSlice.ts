@@ -9,7 +9,7 @@ const initialState = {
 };
 
 export const videoRoomSlice = createSlice({
-  name: "videoRoom",
+  name: "videoRooms",
   initialState,
   reducers: {
     setInRoom: (state, action) => {

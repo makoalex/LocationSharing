@@ -10,9 +10,7 @@ import { setLocalStream } from "./videoRoomSlice";
 
         })
         if(localStream){
-            console.log("localStream",localStream);
-            const streamId= localStream.id
-            store.dispatch(setLocalStream(streamId))
+            store.dispatch(setLocalStream(localStream))
         }
         return Boolean(localStream)
 
