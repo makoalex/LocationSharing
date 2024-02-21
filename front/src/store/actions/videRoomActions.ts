@@ -6,7 +6,7 @@ import {
 } from "../../realTimeCommunication/videoRoomSlice";
 import * as socketConnect from "../../SocketConnect/SocketConnect";
 import { IRoomInfo } from "../../Types";
-import { getAccessToLocalStream } from "../../realTimeCommunication/webRtcHanler";
+import { getAccessToLocalStream, getPeerId } from "../../realTimeCommunication/webRtcHanler";
 
 export const createVideoRoom = async () => {
   // get access to local stream and create a new room
@@ -17,7 +17,7 @@ export const createVideoRoom = async () => {
     store.dispatch(setInRoom(newRoomId));
 
     socketConnect.createVideoRoom({
-      peerId: 1, // change this later with real peerId
+      peerId: getPeerId(), 
       newRoomId,
     });
   }
