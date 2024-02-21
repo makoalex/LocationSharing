@@ -5,10 +5,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const cors_1 = __importDefault(require("cors"));
+const peer_1 = require("peer");
 const socket_io_1 = require("socket.io");
 const node_http_1 = require("node:http");
 const app = (0, express_1.default)();
 app.use((0, cors_1.default)());
+// peer server
+const peerServer = (0, peer_1.PeerServer)({ port: 9000, path: "/peer" });
 const server = (0, node_http_1.createServer)(app);
 const PORT = process.env.PORT || 3003;
 let onlineUsers = {};
