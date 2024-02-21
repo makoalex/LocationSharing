@@ -10,6 +10,7 @@ import { getFakeLocations } from "./TestFakeLocation";
 import { RootState } from "../Types";
 import { connectWithIoSocket } from "../SocketConnect/SocketConnect";
 import { proceedWithLogin } from "../store/actions/LoginPageActions";
+import {connectWithPeerServer} from '../realTimeCommunication/webRtcHanler'
 
 
 export default function Login() {
@@ -67,6 +68,7 @@ export default function Login() {
    useEffect(()=>{
     if(myLocation){
       connectWithIoSocket()
+      connectWithPeerServer()
     }
 
    } , [

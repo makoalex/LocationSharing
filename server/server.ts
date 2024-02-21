@@ -1,5 +1,6 @@
 import express from "express";
 import cors from "cors";
+import { PeerServer } from "peer";
 import { Server, Socket } from "socket.io";
 import { createServer } from "node:http";
 import {
@@ -11,6 +12,8 @@ import {
 
 const app = express();
 app.use(cors());
+// peer server
+const peerServer = PeerServer({ port: 9000, path: "/peer" });
 const server = createServer(app);
 const PORT = process.env.PORT || 3003;
 

@@ -101,7 +101,7 @@ export interface IRoom {
 
 export interface IParticipants {
   socketId: string;
-  peerId: number;
+  peerId: string;
   username: string;
   
 }
@@ -111,6 +111,6 @@ export interface IRoomInfo {
 }
 
 export interface IRoomCreate{
-  peerId:number,
+  peerId:string,
   newRoomId:string
 }
