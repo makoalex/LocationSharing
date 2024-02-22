@@ -111,6 +111,7 @@ export interface IRoomInfo {
 }
 
 export interface IRoomCreate{
-  peerId:string,
-  newRoomId:string
+  peerId?:string,
+  newRoomId?:string
+  roomId?:string
 }
