@@ -1,10 +1,15 @@
 import React from "react";
+import { useSelector } from "react-redux"; 
 import Call from "../assets/Group.png";
 import { createVideoRoom } from "../store/actions/videRoomActions";
 
 export default function CreateRoomButton() {
+  const inRoom = useSelector((state: any) => state.videoRooms.inRoom);
   // add the handler for creating a room
   const handleCreateRoom = () => {
+    if(inRoom){
+      return alert('You are already in a room')
+    }
     createVideoRoom();
   };
   return (

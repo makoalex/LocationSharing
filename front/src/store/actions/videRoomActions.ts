@@ -22,6 +22,19 @@ export const createVideoRoom = async () => {
     });
   }
 };
+// function to join a Video Room
+
+export const  joinVideoRoom= async(roomId:string)=>{
+  const success = await getAccessToLocalStream();
+  if(success){
+    store.dispatch(setInRoom(roomId))
+
+    socketConnect.joinVideoRoom({
+      roomId,
+      peerId: getPeerId()
+    })
+  }
+} 
 export const videoRoomListHandler = (videoRooms: IRoomInfo[]) => {
   store.dispatch(setRooms(videoRooms));
 };

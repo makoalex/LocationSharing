@@ -1,10 +1,19 @@
 import React from "react";
-import { IRoom } from "../Types";
+import { IRoom, RoomState } from "../Types";
+import { joinVideoRoom } from "../store/actions/videRoomActions";
+import { useSelector } from "react-redux";
 
 export default function RoomJoinedButton(props: any) {
+  const inRoom = useSelector((state:any) => state.videoRooms.inRoom)
   const { creatorUsername, roomId, amountOfParticipants } = props;
   const handleClick = () => {
-    //stay tun coming soon
+    if(inRoom) {
+      return alert('You are already in a room')
+    }
+    if(amountOfParticipants> 1){
+      return alert('Room is full')
+    }
+    joinVideoRoom(roomId)
   };
   return (
     <button
