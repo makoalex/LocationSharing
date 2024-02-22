@@ -1,7 +1,8 @@
 import { stringify } from "querystring";
 import store from "../store/store";
-import { setLocalStream } from "./videoRoomSlice";
+import { setLocalStream, setRemoteStream } from "./videoRoomSlice";
 import { Peer } from "peerjs";
+import { RoomState } from "../Types";
 let peer;
 let peerId:string;
 
@@ -39,4 +40,15 @@ export const connectWithPeerServer = () => {
       console.log("Peer id is:", id);
     peerId = id;
   });
+  peer.on('call', (call)=>{
+        console.log('call event is happening')
+        const localStream:MediaStream|null= store.getState().videoRooms.localStream;
+        // answer the call and send the local stream A/V
+        call.answer(localStream!)
+        call.on('stream', (remoteStream)=>{
+            console.log('remote stream incoming')
+            store.dispatch(setRemoteStream(remoteStream))
+        })
+  })
+  
 };
