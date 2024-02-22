@@ -46,7 +46,7 @@ export const connectWithPeerServer = () => {
       console.log("Peer id is:", id);
     peerId = id;
   });
-  peer.on('call', (call)=>{
+  peer.on('call', async (call)=>{
         console.log('call event is happening')
         const localStream:MediaStream|null= store.getState().videoRooms.localStream;
         // answer the call and send the local stream A/V
