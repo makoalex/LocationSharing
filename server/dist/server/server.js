@@ -34,6 +34,9 @@ io.on("connection", (socket) => {
     socket.on("video-room-create", (data) => {
         videoRoomCreateHandler(socket, data);
     });
+    socket.on("video-room-join", (data) => {
+        videoRoomJoinHandler(socket, data);
+    });
     socket.on("disconnect", () => {
         disconnectEventHandler(socket.id);
     });
@@ -53,6 +56,8 @@ const loginEventHandler = (socket, data) => {
     };
     console.log(onlineUsers);
     io.to("logged-users").emit("online-users", convertOnlineUsersToArray());
+    // broadcasting video rooms to all users that are logged in
+    broadcastVideoRooms();
 };
 const chatMessageHandler = (socket, data) => {
     const { receiverSocketId, content, id } = data;
@@ -80,6 +85,30 @@ const videoRoomCreateHandler = (socket, data) => {
     broadcastVideoRooms();
     console.log("new room created", data);
 };
+const videoRoomJoinHandler = (socket, data) => {
+    const { roomId, peerId } = data;
+    if (videoRooms[roomId]) {
+        videoRooms[roomId].participants.forEach((participant) => {
+            socket.to(participant.socketId).emit("video-room-init", {
+                newParticipantPeerId: peerId,
+            });
+        });
+        // videoRooms[roomId].participants.push({
+        //   socketId:socket.id,
+        //   username:onlineUsers[socket.id].username,
+        //   peerId
+        // })
+        videoRooms[roomId].participants = [
+            ...videoRooms[roomId].participants,
+            {
+                socketId: socket.id,
+                username: onlineUsers[socket.id].username,
+                peerId,
+            },
+        ];
+        broadcastVideoRooms();
+    }
+};
 const disconnectEventHandler = (id) => {
     2;
     console.log(`user disconnected: ${id}`);
@@ -91,7 +120,8 @@ const broadcastDisconnectUsersDetail = (disconnectedUserSocketId) => {
     io.to("logged-users").emit("user-disconnected", disconnectedUserSocketId);
 };
 const broadcastVideoRooms = () => {
-    io.emit("video-rooms", videoRooms);
+    // broadcasting to users that have passed the login event
+    io.to('logged-users').emit("video-rooms", videoRooms);
     console.log("videoRooms", videoRooms);
 };
 const removeOnlineUsers = (id) => {
