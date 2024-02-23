@@ -6,6 +6,7 @@ import {
 import { IMessage, dataProps, dataUserProps, IParticipants, IRoomCreate, IRoomInfo } from "../Types";
 import { chatMessageHandler } from "../store/actions/MessengerActions";
 import { videoRoomListHandler } from "../store/actions/videRoomActions";
+import { call, callProps } from "../realTimeCommunication/webRtcHanler";
 
 let socket: Socket | null = null;
 export const connectWithIoSocket = () => {
@@ -31,7 +32,12 @@ export const connectWithIoSocket = () => {
     console.log('list of rooms',videoRooms)
     videoRoomListHandler(videoRooms)
   })
+
+  socket.on('video-room-init',(data:callProps)=>{
+    call(data)
+  })
 };
+
 
 export const login = (data: dataProps) => {
   socket!.emit("user-login", data);

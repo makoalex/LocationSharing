@@ -59,7 +59,7 @@ export const connectWithPeerServer = () => {
   
 };
 // function to call another user
-interface callProps extends IParticipants{
+ export interface callProps extends IParticipants{
     newParticipantPeerId:string
 }
 
