@@ -45,6 +45,9 @@ io.on("connection", (socket) => {
   socket.on("video-room-join", (data: IRoomCreate) => {
     videoRoomJoinHandler(socket, data);
   });
+  socket.on("video-room-leave", (data: IRoomCreate) => {
+    videoRoomLeaveHandler(socket, data);
+  });
 
   socket.on("disconnect", () => {
     disconnectEventHandler(socket.id);
@@ -70,7 +73,7 @@ const loginEventHandler = (socket: Socket, data: dataProps) => {
   console.log(onlineUsers);
   io.to("logged-users").emit("online-users", convertOnlineUsersToArray());
   // broadcasting video rooms to all users that are logged in
-  broadcastVideoRooms()
+  broadcastVideoRooms();
 };
 
 const chatMessageHandler = (socket: Socket, data: IMessage) => {
@@ -102,7 +105,6 @@ const videoRoomCreateHandler = (socket: Socket, data: IRoomCreate) => {
   console.log("new room created", data);
 };
 
-
 const videoRoomJoinHandler = (socket: Socket, data: IRoomCreate) => {
   const { roomId, peerId } = data;
   if (videoRooms[roomId]) {
@@ -111,11 +113,7 @@ const videoRoomJoinHandler = (socket: Socket, data: IRoomCreate) => {
         newParticipantPeerId: peerId,
       });
     });
-    // videoRooms[roomId].participants.push({
-    //   socketId:socket.id,
-    //   username:onlineUsers[socket.id].username,
-    //   peerId
-    // })
+
     videoRooms[roomId].participants = [
       ...videoRooms[roomId].participants,
       {
@@ -127,7 +125,27 @@ const videoRoomJoinHandler = (socket: Socket, data: IRoomCreate) => {
     broadcastVideoRooms();
   }
 };
-
+export const videoRoomLeaveHandler = (socket: Socket, data: IRoomCreate) => {
+  const { roomId } = data;
+  if (videoRooms[roomId]) {
+    videoRooms[roomId].participants = videoRooms[roomId].participants.filter(
+      (participant: IParticipants) => {
+        return participant.socketId !== socket.id;
+      }
+    );
+  }
+  if (videoRooms[roomId].participants.length > 0) {
+    // emit an event to all the participants in the room
+    socket
+      .to(videoRooms[roomId].participants[0].socketId)
+      .emit("video-room-disconnect");
+  }
+  // delete the room if there are no participants
+  if (videoRooms[roomId].participants.length === 0) {
+    delete videoRooms[roomId];
+  }
+  broadcastVideoRooms();
+};
 
 const disconnectEventHandler = (id: string) => {
   2;
@@ -143,8 +161,8 @@ const broadcastDisconnectUsersDetail = (disconnectedUserSocketId: string) => {
 };
 
 const broadcastVideoRooms = () => {
-// broadcasting to users that have passed the login event
-io.to('logged-users').emit("video-rooms", videoRooms);
+  // broadcasting to users that have passed the login event
+  io.to("logged-users").emit("video-rooms", videoRooms);
   console.log("videoRooms", videoRooms);
 };
 
