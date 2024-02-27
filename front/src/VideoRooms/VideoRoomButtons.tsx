@@ -4,9 +4,11 @@ import CamOff from "../assets/CamOff.png";
 import Disconnect from "../assets/endCall.png";
 import Mic from "../assets/Mic.png";
 import Mute from "../assets/Mute.png";
+import { leaveVideoRoom } from "../store/actions/videRoomActions"
 
-export default function VideoRoomButtons() {
+export default function VideoRoomButtons({inRoom }: {inRoom: string} ) {
     const handleLeaveRoom= ()=>{
+        leaveVideoRoom(inRoom)
 
     }
   return (

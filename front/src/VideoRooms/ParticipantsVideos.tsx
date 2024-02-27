@@ -7,6 +7,7 @@ import VideoRoomButtons from "./VideoRoomButtons";
 
 export default function ParticipantsVideos() {
   const inRoom = useSelector((state: any) => state.videoRooms.inRoom);
+  console.log('inRoom is this',typeof inRoom);
   const localStream = useSelector((state: any) => state.videoRooms.localStream);
   const remoteStream = useSelector(
     (state: any) => state.videoRooms.remoteStream
@@ -17,7 +18,7 @@ export default function ParticipantsVideos() {
         {/* using  muted for testing on same device  */}
         {inRoom && localStream ? <Video stream={localStream} muted /> : null}
         {inRoom && remoteStream ? <Video stream={remoteStream} muted /> : null}
-        {inRoom ? <VideoRoomButtons /> : null}
+        {inRoom ? <VideoRoomButtons inRoom={inRoom} /> : null}
       </div>
     </>
   );

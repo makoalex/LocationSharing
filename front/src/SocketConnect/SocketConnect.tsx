@@ -58,5 +58,7 @@ export const joinVideoRoom = (data:IRoomCreate)=>{
   console.log('emitting event to join a room',data)
   socket?.emit('video-room-join',data)
 }
-
+export const leaveRoom=(data:IRoomCreate)=>{
+  socket?.emit('video-room-leave',data)
+}
  
