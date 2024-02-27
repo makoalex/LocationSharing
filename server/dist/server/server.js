@@ -3,6 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.videoRoomLeaveHandler = void 0;
 const express_1 = __importDefault(require("express"));
 const cors_1 = __importDefault(require("cors"));
 const peer_1 = require("peer");
@@ -36,6 +37,9 @@ io.on("connection", (socket) => {
     });
     socket.on("video-room-join", (data) => {
         videoRoomJoinHandler(socket, data);
+    });
+    socket.on("video-room-leave", (data) => {
+        (0, exports.videoRoomLeaveHandler)(socket, data);
     });
     socket.on("disconnect", () => {
         disconnectEventHandler(socket.id);
@@ -93,11 +97,6 @@ const videoRoomJoinHandler = (socket, data) => {
                 newParticipantPeerId: peerId,
             });
         });
-        // videoRooms[roomId].participants.push({
-        //   socketId:socket.id,
-        //   username:onlineUsers[socket.id].username,
-        //   peerId
-        // })
         videoRooms[roomId].participants = [
             ...videoRooms[roomId].participants,
             {
@@ -109,6 +108,26 @@ const videoRoomJoinHandler = (socket, data) => {
         broadcastVideoRooms();
     }
 };
+const videoRoomLeaveHandler = (socket, data) => {
+    const { roomId } = data;
+    if (videoRooms[roomId]) {
+        videoRooms[roomId].participants = videoRooms[roomId].participants.filter((participant) => {
+            return participant.socketId !== socket.id;
+        });
+    }
+    if (videoRooms[roomId].participants.length > 0) {
+        // emit an event to all the participants in the room
+        socket
+            .to(videoRooms[roomId].participants[0].socketId)
+            .emit("video-room-disconnect");
+    }
+    // delete the room if there are no participants
+    if (videoRooms[roomId].participants.length === 0) {
+        delete videoRooms[roomId];
+    }
+    broadcastVideoRooms();
+};
+exports.videoRoomLeaveHandler = videoRoomLeaveHandler;
 const disconnectEventHandler = (id) => {
     2;
     console.log(`user disconnected: ${id}`);
@@ -121,7 +140,7 @@ const broadcastDisconnectUsersDetail = (disconnectedUserSocketId) => {
 };
 const broadcastVideoRooms = () => {
     // broadcasting to users that have passed the login event
-    io.to('logged-users').emit("video-rooms", videoRooms);
+    io.to("logged-users").emit("video-rooms", videoRooms);
     console.log("videoRooms", videoRooms);
 };
 const removeOnlineUsers = (id) => {

@@ -6,7 +6,11 @@ import {
 } from "../../realTimeCommunication/videoRoomSlice";
 import * as socketConnect from "../../SocketConnect/SocketConnect";
 import { IRoomInfo } from "../../Types";
-import { getAccessToLocalStream, getPeerId } from "../../realTimeCommunication/webRtcHanler";
+import {
+  getAccessToLocalStream,
+  getPeerId,
+} from "../../realTimeCommunication/webRtcHanler";
+import{leaveRoom} from '../../SocketConnect/SocketConnect'
 
 export const createVideoRoom = async () => {
   // get access to local stream and create a new room
@@ -17,24 +21,30 @@ export const createVideoRoom = async () => {
     store.dispatch(setInRoom(newRoomId));
 
     socketConnect.createVideoRoom({
-      peerId: getPeerId(), 
+      peerId: getPeerId(),
       newRoomId,
     });
   }
 };
 // function to join a Video Room
 
-export const  joinVideoRoom= async(roomId:string)=>{
+export const joinVideoRoom = async (roomId: string) => {
   const success = await getAccessToLocalStream();
-  if(success){
-    store.dispatch(setInRoom(roomId))
+  if (success) {
+    store.dispatch(setInRoom(roomId));
 
     socketConnect.joinVideoRoom({
       roomId,
-      peerId: getPeerId()
-    })
+      peerId: getPeerId(),
+    });
   }
-} 
+};
 export const videoRoomListHandler = (videoRooms: IRoomInfo[]) => {
   store.dispatch(setRooms(videoRooms));
+};
+
+export const leaveVideoRoom = (roomId: string) => {
+  // disconnect function that will disconnect th WebRTC connection
+  socketConnect.leaveRoom({ roomId });
+  store.dispatch(setInRoom(false))
 };
