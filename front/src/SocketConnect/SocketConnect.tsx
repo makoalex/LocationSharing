@@ -7,6 +7,7 @@ import { IMessage, dataProps, dataUserProps, IParticipants, IRoomCreate, IRoomIn
 import { chatMessageHandler } from "../store/actions/MessengerActions";
 import { videoRoomListHandler } from "../store/actions/videRoomActions";
 import { call, callProps } from "../realTimeCommunication/webRtcHanler";
+import { disconnect } from "../realTimeCommunication/webRtcHanler";
 
 let socket: Socket | null = null;
 export const connectWithIoSocket = () => {
@@ -35,6 +36,10 @@ export const connectWithIoSocket = () => {
 
   socket.on('video-room-init',(data:callProps)=>{
     call(data)
+  })
+  socket.on('video-room-disconnect', (data)=>{
+    disconnect()
+
   })
 };
 

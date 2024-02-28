@@ -7,6 +7,7 @@ import {
 import * as socketConnect from "../../SocketConnect/SocketConnect";
 import { IRoomInfo } from "../../Types";
 import {
+  disconnect,
   getAccessToLocalStream,
   getPeerId,
 } from "../../realTimeCommunication/webRtcHanler";
@@ -45,6 +46,7 @@ export const videoRoomListHandler = (videoRooms: IRoomInfo[]) => {
 
 export const leaveVideoRoom = (roomId: string) => {
   // disconnect function that will disconnect th WebRTC connection
+  disconnect()
   socketConnect.leaveRoom({ roomId });
   store.dispatch(setInRoom(false))
 };

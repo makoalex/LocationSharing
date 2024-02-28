@@ -9,14 +9,14 @@ import { IParticipants, RoomState } from "../Types";
 //     call:(mediaConnection: MediaConnection)=>void;
 
 // }
-let peer:Peer;
-let peerId:string;
+let peer: Peer;
+let peerId: string;
+let peerConnection = new Map<string, MediaConnection[]>();
 
 // getting the peer id
-export const getPeerId = ()=>{
-    return peerId
-
-}
+export const getPeerId = () => {
+  return peerId;
+};
 
 export const getAccessToLocalStream = async () => {
   let localStream = null;
@@ -43,32 +43,53 @@ export const connectWithPeerServer = () => {
   });
 
   peer.on("open", (id) => {
-      console.log("Peer id is:", id);
+    console.log("Peer id is:", id);
     peerId = id;
   });
-  peer.on('call', async (call)=>{
-        console.log('call event is happening')
-        const localStream:MediaStream|null= store.getState().videoRooms.localStream;
-        // answer the call and send the local stream A/V
-        call.answer(localStream!)
-        call.on('stream', (remoteStream:MediaStream)=>{
-            console.log('remote stream incoming')
-            store.dispatch(setRemoteStream(remoteStream))
-        })
-  })
-  
+  peer.on("call", async (call) => {
+    // Retrieve or create an array for the peer's connections
+    let connections = peerConnection.get(call.peer);
+    const connection = call;
+    if (!connections) {
+      connections = [];
+      peerConnection.set(call.peer, connections);
+    }
+     // Add the new connection to the array
+    connections.push(connection);
+
+    console.log("call event is happening");
+    const localStream: MediaStream | null =
+      store.getState().videoRooms.localStream;
+    // answer the call and send the local stream A/V
+    call.answer(localStream!);
+    call.on("stream", (remoteStream: MediaStream) => {
+      console.log("remote stream incoming");
+      store.dispatch(setRemoteStream(remoteStream));
+    });
+  });
 };
 // function to call another user
- export interface callProps extends IParticipants{
-    newParticipantPeerId:string
+export interface callProps extends IParticipants {
+  newParticipantPeerId: string;
 }
 
-export const call= (data:callProps)=>{
-    const{newParticipantPeerId}= data
-    const localStream = store.getState().videoRooms.localStream;
-    const peerCall= peer.call(newParticipantPeerId, localStream!)
-    peerCall.on('stream', (remoteStream:MediaStream)=>{
-        console.log('remote stream2 incoming')
-        store.dispatch(setRemoteStream(remoteStream))
-    })
-} 
+export const call = (data: callProps) => {
+  const { newParticipantPeerId } = data;
+  const localStream = store.getState().videoRooms.localStream;
+  const peerCall = peer.call(newParticipantPeerId, localStream!);
+  peerCall.on("stream", (remoteStream: MediaStream) => {
+    console.log("remote stream2 incoming");
+    store.dispatch(setRemoteStream(remoteStream));
+  });
+};
+export const disconnect = () => {
+  peerConnection.forEach((connections) => {
+    connections.forEach((connection) => {
+      connection.peerConnection.close();
+      console.log("closing connection", connections);
+      if (connection.close) connection.close();
+    });
+    
+  });
+  store.dispatch(setRemoteStream(null));
+};
