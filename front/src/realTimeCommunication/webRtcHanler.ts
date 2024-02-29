@@ -54,7 +54,7 @@ export const connectWithPeerServer = () => {
       connections = [];
       peerConnection.set(call.peer, connections);
     }
-     // Add the new connection to the array
+    // Add the new connection to the array
     connections.push(connection);
 
     console.log("call event is happening");
@@ -85,11 +85,12 @@ export const call = (data: callProps) => {
 export const disconnect = () => {
   peerConnection.forEach((connections) => {
     connections.forEach((connection) => {
-      connection.peerConnection.close();
+      if (connection.peerConnection) {
+        connection.peerConnection.close();
+      }
       console.log("closing connection", connections);
       if (connection.close) connection.close();
     });
-    
   });
   store.dispatch(setRemoteStream(null));
 };
