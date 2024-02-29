@@ -50,7 +50,7 @@ io.on("connection", (socket) => {
   });
 
   socket.on("disconnect", () => {
-    disconnectEventHandler(socket.id);
+    disconnectEventHandler(socket);
   });
 });
 
@@ -147,11 +147,10 @@ export const videoRoomLeaveHandler = (socket: Socket, data: IRoomCreate) => {
   broadcastVideoRooms();
 };
 
-const disconnectEventHandler = (id: string) => {
-  2;
-  console.log(`user disconnected: ${id}`);
-  removeOnlineUsers(id);
-  broadcastDisconnectUsersDetail(id);
+const disconnectEventHandler = (socket:Socket) => {
+  console.log(`user disconnected: ${socket.id}`);
+  removeOnlineUsers(socket.id);
+  broadcastDisconnectUsersDetail(socket.id);
 };
 
 //  helper functions
