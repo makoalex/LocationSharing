@@ -3,32 +3,20 @@ import { useSelector } from "react-redux";
 import store from "../store/store";
 import CreateRoomButton from "./CreateRoomButton";
 import RoomJoinedButton from "./RoomJoinedButton";
-import { IParticipants, IRoomInfo } from "../Types";
+import { IParticipants, IRoomInfo, IRoomToDisplay } from "../Types";
 import ParticipantsVideos from "./ParticipantsVideos";
-
-
-
-export interface IRoomToDisplay {
-  creatorUsername: string;
-  id: string;
-  amountOfParticipants: number;
-  participants?: IParticipants[];
-
-}
 
 const convertRoomsToArray = (VideRooms: IRoomInfo[]) => {
   const rooms: IRoomToDisplay[] = [];
-  Object.entries(VideRooms).forEach(([key, value]) =>{
+  Object.entries(VideRooms).forEach(([key, value]) => {
     rooms.push({
       id: key,
       creatorUsername: value.participants[0].username,
       amountOfParticipants: value.participants.length,
-    })
-  }
-
-  )
-  return rooms
-}
+    });
+  });
+  return rooms;
+};
 
 export const RoomList = () => {
   const rooms = useSelector(
@@ -56,8 +44,7 @@ export default function VideoRoom() {
     <div>
       <RoomList />
       {/* participants component   */}
-      <ParticipantsVideos/>
-
+      <ParticipantsVideos />
     </div>
   );
 }

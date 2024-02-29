@@ -39,7 +39,7 @@ io.on("connection", (socket) => {
     chatMessageHandler(socket, data);
   });
 
-  socket.on("video-room-create", (data: any) => {
+  socket.on("video-room-create", (data: IRoomCreate) => {
     videoRoomCreateHandler(socket, data);
   });
   socket.on("video-room-join", (data: IRoomCreate) => {
