@@ -117,3 +117,11 @@ export interface IRoomCreate{
   newRoomId?:string
   roomId?:string
 }
+export interface IRoomToDisplay {
+  creatorUsername: string;
+  id?: string;
+  amountOfParticipants: number;
+  participants?: IParticipants[];
+  roomId?:string
+
+}

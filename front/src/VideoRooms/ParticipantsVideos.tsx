@@ -6,11 +6,15 @@ import Video from "./Video";
 import VideoRoomButtons from "./VideoRoomButtons";
 
 export default function ParticipantsVideos() {
-  const inRoom = useSelector((state: any) => state.videoRooms.inRoom);
-  console.log('inRoom is this',typeof inRoom);
-  const localStream = useSelector((state: any) => state.videoRooms.localStream);
+  const inRoom = useSelector(
+    (state: { videoRooms: RoomState }) => state.videoRooms.inRoom
+  );
+  console.log("inRoom is this", typeof inRoom);
+  const localStream = useSelector(
+    (state: { videoRooms: RoomState }) => state.videoRooms.localStream
+  );
   const remoteStream = useSelector(
-    (state: any) => state.videoRooms.remoteStream
+    (state: { videoRooms: RoomState }) => state.videoRooms.remoteStream
   );
   return (
     <>

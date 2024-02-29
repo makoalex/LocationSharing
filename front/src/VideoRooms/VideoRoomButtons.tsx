@@ -19,16 +19,21 @@ export default function VideoRoomButtons({ inRoom }: { inRoom: string }) {
   const isCameraOn = useSelector(
     (state: { videoRooms: RoomState }) => state.videoRooms.isCameraOn
   );
+  const localStream = useSelector((state:{videoRooms:RoomState})=>state.videoRooms.localStream)
 
   const handleLeaveRoom = () => {
     leaveVideoRoom(inRoom);
   };
 
   const handleMuteMicChange = () => {
+    // handle the mic change
+    localStream!.getAudioTracks()[0].enabled= !(localStream!.getAudioTracks()[0].enabled)
     dispatch(setIsMicOn(!isMicOn));
   };
 
   const handleCameraChange = () => {
+    // handle the camera change
+    localStream!.getVideoTracks()[0].enabled = !(localStream!.getVideoTracks()[0].enabled);
     dispatch(setIsCameraOn(!isCameraOn));
   };
 
