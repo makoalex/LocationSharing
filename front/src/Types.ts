@@ -93,6 +93,8 @@ export interface RoomState {
   rooms: string[];
   localStream?: MediaStream | null;
   remoteStream?: MediaStream | null;
+  isMicOn?:boolean,
+  isCameraOn?:boolean
 }
 export interface IRoom {
   id: string;
