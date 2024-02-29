@@ -27,14 +27,6 @@ const convertRoomsToArray = (VideRooms: IRoomInfo[]) => {
   }
 
   )
-  // for (const [key, value] of Object.entries(VideRooms)) {
-  //   rooms.push({
-  //     id: key,
-  //     creatorUsername: value.participants[0].username,
-  //     amountOfParticipants: value.participants.length,
-  //   });
-  // }
-  // return rooms;
   return rooms
 }
 
