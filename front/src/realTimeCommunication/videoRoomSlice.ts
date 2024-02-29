@@ -6,6 +6,8 @@ const initialState = {
   rooms: [],
   localStream: null,
   remoteStream: null,
+  isMicOn: true,
+  isCameraOn: true,
 };
 
 export const videoRoomSlice = createSlice({
@@ -24,9 +26,21 @@ export const videoRoomSlice = createSlice({
     setRemoteStream: (state, action) => {
       state.remoteStream = action.payload;
     },
+    setIsMicOn: (state, action: PayloadAction<boolean>) => {
+      state.isMicOn = action.payload;
+    },
+    setIsCameraOn: (state, action: PayloadAction<boolean>) => {
+      state.isCameraOn = action.payload;
+    },
   },
 });
 
-export const { setInRoom, setRooms, setLocalStream, setRemoteStream } =
-  videoRoomSlice.actions;
+export const {
+  setInRoom,
+  setRooms,
+  setLocalStream,
+  setRemoteStream,
+  setIsMicOn,
+  setIsCameraOn,
+} = videoRoomSlice.actions;
 export default videoRoomSlice.reducer;
