@@ -42,7 +42,7 @@ io.on("connection", (socket) => {
         (0, exports.videoRoomLeaveHandler)(socket, data);
     });
     socket.on("disconnect", () => {
-        disconnectEventHandler(socket.id);
+        disconnectEventHandler(socket);
     });
 });
 app.get("/", (req, res) => {
@@ -128,11 +128,13 @@ const videoRoomLeaveHandler = (socket, data) => {
     broadcastVideoRooms();
 };
 exports.videoRoomLeaveHandler = videoRoomLeaveHandler;
-const disconnectEventHandler = (id) => {
-    2;
-    console.log(`user disconnected: ${id}`);
-    removeOnlineUsers(id);
-    broadcastDisconnectUsersDetail(id);
+const disconnectEventHandler = (socket) => {
+    // add functionality to check if the user is in a room and remove him from the room
+    checkIFUserIsInCall(socket);
+    //
+    console.log(`user disconnected: ${socket.id}`);
+    removeOnlineUsers(socket.id);
+    broadcastDisconnectUsersDetail(socket.id);
 };
 //  helper functions
 const broadcastDisconnectUsersDetail = (disconnectedUserSocketId) => {
@@ -159,5 +161,26 @@ const convertOnlineUsersToArray = () => {
         });
     });
     return onlineUsersArray;
+};
+const checkIFUserIsInCall = (socket) => {
+    Object.entries(videoRooms).forEach(([key, value]) => {
+        const participant = value.participants.find((p) => p.socketId === socket.id);
+        if (participant) {
+            removeUserFromVideoRoom(socket.id, key);
+        }
+    });
+};
+const removeUserFromVideoRoom = (socketId, roomId) => {
+    videoRooms[roomId].participants = videoRooms[roomId].participants.filter((participant) => participant.socketId !== socketId);
+    // remove the room if there are no participants left in the room
+    if (videoRooms[roomId].participants.length === 0) {
+        delete videoRooms[roomId];
+    }
+    else {
+        // if there are participants left in the room inform  him to clear his peer connection
+        console.log("informing the other participant to clear his peer connection");
+        io.to(videoRooms[roomId].participants[0].socketId).emit("video-room-disconnect");
+    }
+    broadcastVideoRooms();
 };
 //# sourceMappingURL=server.js.map
