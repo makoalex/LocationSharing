@@ -18,7 +18,7 @@ export default function Input({
   };
 
   return (
-    <div className="flex flex-col justify-center items-start relative h-full w-2/3">
+    <form className="flex flex-col justify-center items-start relative h-full w-2/3">
       <input
         data-testid="input"
         name="userName"
@@ -38,6 +38,6 @@ export default function Input({
       >
         Join Chat
       </button>
-    </div>
+    </form>
   );
 }
