@@ -18,8 +18,8 @@ export const getPeerId = () => {
   return peerId;
 };
 
+let localStream: MediaStream | null = null;
 export const getAccessToLocalStream = async () => {
-  let localStream = null;
   try {
     localStream = await navigator.mediaDevices.getUserMedia({
       audio: true,
@@ -82,6 +82,12 @@ export const call = (data: callProps) => {
     store.dispatch(setRemoteStream(remoteStream));
   });
 };
+
+// clean up the local stream close the connection
+const cleanUpLocalStream = () => {
+  localStream?.getTracks().forEach((track) => track.stop());
+};
+
 export const disconnect = () => {
   peerConnection.forEach((connections) => {
     connections.forEach((connection) => {
@@ -92,5 +98,6 @@ export const disconnect = () => {
       if (connection.close) connection.close();
     });
   });
+  cleanUpLocalStream()
   store.dispatch(setRemoteStream(null));
 };
