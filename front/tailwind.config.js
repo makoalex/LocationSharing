@@ -24,10 +24,11 @@ module.exports = {
     extend: {
       colors: {
         primary: "#FBF3F0ff",
-        callAction: "#CEED40",
-        disabledButton:"#a388ee",
         secondary: "#F5F5F5ff",
-        accent: "#ADDD2C",
+        tertiary: "#a36bfeff",
+        callAction: "#9ef01a  ",
+        disabledButton:"#a388ee",
+        accent: "#70e000",
 
       },
     },
