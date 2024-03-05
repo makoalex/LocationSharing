@@ -3,18 +3,19 @@
 @tailwind components;
 @tailwind utilities;
 
-
 * {
   box-sizing: border-box;
+
 }
 
 body {
+  /* height: 100vh; */
   margin: 0;
   padding: 0;
-  height: 100vh;
   width: 100vw;
-  background: #FCF8E7;
+  background: rgb(241, 236, 247);
   font-size: 60.5%;
+  /* overflow: hidden; */
 }
 
 layer base {
@@ -26,5 +27,50 @@ layer base {
   }
   .section {
     @apply py-8 lg:py-24 lg:h-screen flex items-center mb-24;
+  }
+}
+
+@layer utilities {
+  .clip {
+    clip-path: polygon(38% 0, 100% 0, 100% 95vh, 0 89%);
+  }
+  .clipSmall {
+    clip-path: polygon(32% 0, 100% 0, 100% 42vh, 0 89%);
+  }
+  .header {
+    animation: bounce 4s linear infinite;
+  }
+}
+.moveInLeft{
+  animation: moveInLeft;
+  animation-duration: 2s;
+  animation-timing-function: ease-in;
+}
+
+
+@keyframes bounce {
+  0% {
+    transform: translateY(-20px);
+  }
+  50% {
+    transform: translateY(20px);
+  }
+  100% {
+    transform: translateY(-20px);
+  }
+}
+
+
+@keyframes moveInLeft {
+  0% {
+    opacity: 0;
+    transform: translateX(-100px);
+  }
+  80% {
+    transform: translateX(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(0);
   }
 }
