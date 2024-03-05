@@ -76,20 +76,24 @@ export default function Login() {
   return (
     <>
       <section className=" flex flex-col justify-between items-center w-full h-full lg:flex lg:flex-row bg-white  ">
-        <div className="lg:w-1/2 bg-[#a36bfeff] h-screen rounded-r-full flex flex-row justify-between items-center ">
-        <div className=" moveInLeft border-primary relative border-2 border-none rounded-md flex flex-col justify-center items-center shadow-[7px_7px_7px_5px_#7736E0] w-3/4 md:w-3/5  lg:ml-10  h-[350px] bg-primary">
-          <Logo />
-          <Input
-            userName={userName}
-            setUserName={setUserName}
-            onClickHandler={handleLogin}
-            disabled={!isUserNameValid(userName) || locationErrorOccurred}
-          />
+        <div className="lg:w-1/2 bg-tertiary h-screen rounded-r-full flex flex-row justify-between items-center shadow-md ">
+          <div className=" moveInLeft border-primary relative border-2 border-none flex flex-col justify-center items-center shadow-[7px_7px_7px_5px_#7736E0] w-3/4 md:w-3/5  lg:ml-10  h-[350px] bg-primary">
+            <Logo />
+            <Input
+              userName={userName}
+              setUserName={setUserName}
+              onClickHandler={handleLogin}
+              disabled={!isUserNameValid(userName) || locationErrorOccurred}
+            />
+          </div>
         </div>
-        </div>
-      
+
         <div className="lg:w-1/2 lg:h-screen max-h-screen hidden lg:flex flex-col justify-center items-center bg-primary rounded-l-full">
-          <img src={phone} alt="phone" className=" header lg:h-[700px] h-[500px]" />
+          <img
+            src={phone}
+            alt="phone"
+            className=" header lg:h-[700px] h-[500px]"
+          />
         </div>
       </section>
     </>

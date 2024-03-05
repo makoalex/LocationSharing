@@ -28,7 +28,7 @@ export default function NavbarChatBox({
   socketId,
 }: ChatBoxInterface) {
   return (
-    <div className="w-full h-[40px] flex flex-row justify-between items-center p-2 bg-primary  ">
+    <div className="w-full h-[40px] flex flex-row justify-between items-center p-2 bg-tertiary">
       <NavbarLabel username={username} />
       <NavbarCloseButton socketId={socketId} />
     </div>
