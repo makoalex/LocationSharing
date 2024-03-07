@@ -12,7 +12,6 @@ import { connectWithIoSocket } from "../SocketConnect/SocketConnect";
 import { proceedWithLogin } from "../store/actions/LoginPageActions";
 import { connectWithPeerServer } from "../realTimeCommunication/webRtcHanler";
 import phone from "../assets/phone.png";
-import Header from "../components/Header";
 
 export default function Login() {
   const [userName, setUserName] = useState("");
