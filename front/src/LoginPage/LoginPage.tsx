@@ -75,9 +75,9 @@ export default function Login() {
   // #F3DED5
   return (
     <>
-      <section className=" flex flex-col justify-between items-center w-full h-full lg:flex lg:flex-row bg-white  ">
-        <div className="lg:w-1/2 bg-tertiary h-screen rounded-r-full flex flex-row justify-between items-center shadow-md ">
-          <div className=" moveInLeft border-primary relative border-2 border-none flex flex-col justify-center items-center shadow-[7px_7px_7px_5px_#7736E0] w-3/4 md:w-3/5  lg:ml-10  h-[350px] bg-primary">
+      <section className="  w-full h-full lg:flex lg:flex-row bg-white">
+        <div className="lg:w-1/2 bg-tertiary h-screen flex flex-row justify-center  items-center">
+          <div className=" moveInLeft border-primary relative border-2 border-none flex flex-col justify-center items-center shadow-[7px_7px_7px_5px_#7736E0] w-3/4 md:w-3/5  h-[350px] bg-primary">
             <Logo />
             <Input
               userName={userName}
@@ -88,11 +88,11 @@ export default function Login() {
           </div>
         </div>
 
-        <div className="lg:w-1/2 lg:h-screen max-h-screen hidden lg:flex flex-col justify-center items-center bg-primary rounded-l-full">
+        <div className="lg:w-1/2 lg:h-screen  max-h-screen hidden md:visible lg:flex flex-col justify-center items-center bg-primary ">
           <img
             src={phone}
             alt="phone"
-            className=" header lg:h-[700px] h-[500px]"
+            className=" header lg:h-[650px] h-[500px] mt-16"
           />
         </div>
       </section>
