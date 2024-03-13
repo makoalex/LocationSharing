@@ -1,5 +1,4 @@
 import React from "react";
-import { Socket } from "socket.io-client";
 import { useDispatch } from "react-redux";
 import chatIcon from "../../assets/Message1.png";
 import { ChatButtonProps } from "../../Types";

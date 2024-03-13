@@ -1,5 +1,4 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { RoomState } from "../Types";
 
 const initialState = {
   inRoom: null, // on joining a room, will store the user's socketId

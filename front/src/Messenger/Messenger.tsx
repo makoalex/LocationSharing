@@ -8,7 +8,6 @@ export default function Messenger() {
   const chatBoxes = useSelector(
     (state: { messenger: chatState }) => state.messenger.chatBoxes
   );
-  console.log(' this is chatBoxes',chatBoxes);
   return (
     <div className="h-[300px] absolute bottom-1 left-0 flex flex-row z-10 gap-5 ml-5 rounded-md">
       {chatBoxes.map((chatBox) => (

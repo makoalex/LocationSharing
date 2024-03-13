@@ -1,14 +1,9 @@
-import { stringify } from "querystring";
 import store from "../store/store";
 import { setLocalStream, setRemoteStream } from "./videoRoomSlice";
-import { MediaConnection, Peer, PeerEvents } from "peerjs";
-import { IParticipants, RoomState } from "../Types";
+import { MediaConnection, Peer } from "peerjs";
+import { IParticipants } from "../Types";
 
-// interface IPeer extends Peer{
-//     on:(event:keyof PeerEvents, callback:(...args:any[])=>void)=>void;
-//     call:(mediaConnection: MediaConnection)=>void;
 
-// }
 let peer: Peer;
 let peerId: string;
 let peerConnection = new Map<string, MediaConnection[]>();
@@ -43,7 +38,6 @@ export const connectWithPeerServer = () => {
   });
 
   peer.on("open", (id) => {
-    console.log("Peer id is:", id);
     peerId = id;
   });
   peer.on("call", async (call) => {
@@ -57,13 +51,11 @@ export const connectWithPeerServer = () => {
     // Add the new connection to the array
     connections.push(connection);
 
-    console.log("call event is happening");
     const localStream: MediaStream | null =
       store.getState().videoRooms.localStream;
     // answer the call and send the local stream A/V
     call.answer(localStream!);
     call.on("stream", (remoteStream: MediaStream) => {
-      console.log("remote stream incoming");
       store.dispatch(setRemoteStream(remoteStream));
     });
   });
@@ -78,7 +70,6 @@ export const call = (data: callProps) => {
   const localStream = store.getState().videoRooms.localStream;
   const peerCall = peer.call(newParticipantPeerId, localStream!);
   peerCall.on("stream", (remoteStream: MediaStream) => {
-    console.log("remote stream2 incoming");
     store.dispatch(setRemoteStream(remoteStream));
   });
 };
@@ -94,10 +85,9 @@ export const disconnect = () => {
       if (connection.peerConnection) {
         connection.peerConnection.close();
       }
-      console.log("closing connection", connections);
       if (connection.close) connection.close();
     });
   });
-  cleanUpLocalStream()
+  cleanUpLocalStream();
   store.dispatch(setRemoteStream(null));
 };

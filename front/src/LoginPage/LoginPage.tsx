@@ -55,7 +55,7 @@ export default function Login() {
 
   const error = (error: GeolocationPositionError) => {
     console.log(" there was an error getting the location");
-    console.log(error);
+    console.error(error);
     setLocationErrorOccurred(true);
   };
   const myLocation = useSelector((state: RootState) => state.map.myLocation);
