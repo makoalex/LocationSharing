@@ -70,7 +70,6 @@ const loginEventHandler = (socket: Socket, data: dataProps) => {
     username: data.username,
     coords: data.coords,
   };
-  console.log(onlineUsers);
   io.to("logged-users").emit("online-users", convertOnlineUsersToArray());
   // broadcasting video rooms to all users that are logged in
   broadcastVideoRooms();
@@ -78,7 +77,6 @@ const loginEventHandler = (socket: Socket, data: dataProps) => {
 
 const chatMessageHandler = (socket: Socket, data: IMessage) => {
   const { receiverSocketId, content, id } = data;
-  console.log(" this is data in chatMessageHandler", data);
   if (onlineUsers[receiverSocketId]) {
     socket.to(receiverSocketId).emit("chat-message", {
       senderSocketId: socket.id,
@@ -102,7 +100,6 @@ const videoRoomCreateHandler = (socket: Socket, data: IRoomCreate) => {
   };
 
   broadcastVideoRooms();
-  console.log("new room created", data);
 };
 
 const videoRoomJoinHandler = (socket: Socket, data: IRoomCreate) => {
@@ -166,14 +163,12 @@ const broadcastDisconnectUsersDetail = (disconnectedUserSocketId: string) => {
 const broadcastVideoRooms = () => {
   // broadcasting to users that have passed the login event
   io.to("logged-users").emit("video-rooms", videoRooms);
-  console.log("videoRooms", videoRooms);
 };
 
 const removeOnlineUsers = (id: string) => {
   if (onlineUsers[id]) {
     delete onlineUsers[id];
   }
-  console.log(onlineUsers);
 };
 
 const convertOnlineUsersToArray = () => {
@@ -209,7 +204,6 @@ const removeUserFromVideoRoom = (socketId: string, roomId: string) => {
     delete videoRooms[roomId];
   } else {
     // if there are participants left in the room inform  him to clear his peer connection
-    console.log("informing the other participant to clear his peer connection");
     io.to(videoRooms[roomId].participants[0].socketId).emit(
       "video-room-disconnect"
     );

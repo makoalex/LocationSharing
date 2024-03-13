@@ -1,7 +1,7 @@
 import React from "react";
 import { ChatBoxInterface, dataUserProps, mapState } from "../../Types";
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { sendChatMessage } from "../../store/actions/MessengerActions";
 
 export default function NewMessages({ socketId }: ChatBoxInterface) {

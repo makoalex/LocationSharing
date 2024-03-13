@@ -42,7 +42,7 @@ export default function MapPage() {
       );
       return isOverLand;
     } catch (error) {
-      console.log("Error in isValidWaypoint:", error);
+      console.error("Error in isValidWaypoint:", error);
       return false;
     }
   };
@@ -77,7 +77,6 @@ export default function MapPage() {
           if (status === maps.DirectionsStatus.OK) {
             directionsRenderer.setDirections(result);
           } else {
-            console.log(" this is result ", JSON.stringify(result));
             console.error(`error fetching directions ${result}`);
           }
         }
@@ -97,7 +96,6 @@ export default function MapPage() {
 
   useEffect(() => {
     storedOnlineUsers = JSON.parse(localStorage.getItem("onlineUsers") || "[]");
-    console.log("Stored Online Users:", storedOnlineUsers);
     dispatch(setOnlineUsers(storedOnlineUsers));
   }, [dispatch]);
 

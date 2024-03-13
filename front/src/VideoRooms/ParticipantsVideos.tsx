@@ -1,7 +1,6 @@
 import React from "react";
-import { setLocalStream } from "../realTimeCommunication/videoRoomSlice";
 import { useSelector } from "react-redux";
-import { IRoomInfo, RoomState } from "../Types";
+import { RoomState } from "../Types";
 import Video from "./Video";
 import VideoRoomButtons from "./VideoRoomButtons";
 
@@ -9,7 +8,6 @@ export default function ParticipantsVideos() {
   const inRoom = useSelector(
     (state: { videoRooms: RoomState }) => state.videoRooms.inRoom
   );
-  console.log("inRoom is this", typeof inRoom);
   const localStream = useSelector(
     (state: { videoRooms: RoomState }) => state.videoRooms.localStream
   );

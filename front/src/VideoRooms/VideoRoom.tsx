@@ -1,9 +1,8 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import store from "../store/store";
 import CreateRoomButton from "./CreateRoomButton";
 import RoomJoinedButton from "./RoomJoinedButton";
-import { IParticipants, IRoomInfo, IRoomToDisplay } from "../Types";
+import { IRoomInfo, IRoomToDisplay } from "../Types";
 import ParticipantsVideos from "./ParticipantsVideos";
 
 const convertRoomsToArray = (VideRooms: IRoomInfo[]) => {
@@ -22,7 +21,6 @@ export const RoomList = () => {
   const rooms = useSelector(
     (store: { videoRooms: { rooms: IRoomInfo[] } }) => store.videoRooms.rooms
   );
-  console.log("rooms", rooms);
 
   return (
     <div className="flex flex-row-reverse w-screen absolute bottom-7 mr-11 right-11 gap-3 ">

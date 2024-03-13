@@ -1,10 +1,9 @@
 import React from "react";
-import { IRoom, RoomState, IRoomToDisplay } from "../Types";
+import { RoomState, IRoomToDisplay } from "../Types";
 import { joinVideoRoom } from "../store/actions/videRoomActions";
 import { useSelector } from "react-redux";
 
 export default function RoomJoinedButton(props: IRoomToDisplay) {
-  
   const inRoom = useSelector(
     (state: { videoRooms: RoomState }) => state.videoRooms.inRoom
   );

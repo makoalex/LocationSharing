@@ -11,7 +11,6 @@ import {
   getAccessToLocalStream,
   getPeerId,
 } from "../../realTimeCommunication/webRtcHanler";
-import{leaveRoom} from '../../SocketConnect/SocketConnect'
 
 export const createVideoRoom = async () => {
   // get access to local stream and create a new room
