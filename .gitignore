@@ -31,3 +31,7 @@ frontend/*.log
 
 # Ignore any log files for backend
 backend/*.log
+
+# local env files
+.env*.local
+.env
