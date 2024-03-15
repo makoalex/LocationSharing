@@ -10,13 +10,15 @@ import {
   IRoomCreate,
   IParticipants,
 } from "../front/src/Types";
+import dotenv from "dotenv";
 
 const app = express();
 app.use(cors());
+dotenv.config();
 // peer server
 const peerServer = PeerServer({ port: 9000, path: "/peer" });
 const server = createServer(app);
-const PORT = process.env.PORT || 3003;
+const PORT = process.env.PORT;
 
 let onlineUsers: onlineUsersProps = {};
 let videoRooms = {};

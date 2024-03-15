@@ -9,12 +9,14 @@ const cors_1 = __importDefault(require("cors"));
 const peer_1 = require("peer");
 const socket_io_1 = require("socket.io");
 const node_http_1 = require("node:http");
+const dotenv_1 = __importDefault(require("dotenv"));
 const app = (0, express_1.default)();
 app.use((0, cors_1.default)());
+dotenv_1.default.config();
 // peer server
 const peerServer = (0, peer_1.PeerServer)({ port: 9000, path: "/peer" });
 const server = (0, node_http_1.createServer)(app);
-const PORT = process.env.PORT || 3003;
+const PORT = process.env.PORT;
 let onlineUsers = {};
 let videoRooms = {};
 // using the server object with the constructor of socket.io and config object
