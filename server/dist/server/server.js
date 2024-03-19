@@ -16,7 +16,7 @@ dotenv_1.default.config();
 // peer server
 const peerServer = (0, peer_1.PeerServer)({ port: 9000, path: "/peer" });
 const server = (0, node_http_1.createServer)(app);
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 3003;
 let onlineUsers = {};
 let videoRooms = {};
 // using the server object with the constructor of socket.io and config object

@@ -18,7 +18,7 @@ dotenv.config();
 // peer server
 const peerServer = PeerServer({ port: 9000, path: "/peer" });
 const server = createServer(app);
-const PORT = process.env.PORT;
+const PORT = process.env.PORT|| 3003;
 
 let onlineUsers: onlineUsersProps = {};
 let videoRooms = {};
