@@ -17,7 +17,7 @@ import { disconnect } from "../realTimeCommunication/webRtcHanler";
 
 let socket: Socket | null = null;
 export const connectWithIoSocket = () => {
-  socket = io("http://localhost:3003");
+  socket = io( process.env.REACT_APP_API_URL!);
   socket.on("connect", () => {
   });
   socket.on("online-users", (userData: dataUserProps[]) => {
