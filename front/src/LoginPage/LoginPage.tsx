@@ -73,11 +73,12 @@ export default function Login() {
   }, [myLocation]);
   // #FAE4DC
   // #F3DED5
+
   return (
     <>
       <section className="  w-full h-full lg:flex lg:flex-row bg-white">
-        <div className="lg:w-1/2 bg-tertiary h-screen flex flex-row justify-center  items-center">
-          <div className=" moveInLeft border-primary relative border-2 border-none flex flex-col justify-center items-center shadow-[7px_7px_7px_5px_#7736E0] w-3/4 md:w-3/5  h-[350px] bg-primary">
+        <div className=" lg:w-1/2 moveInLeftBg bg-tertiary h-screen flex flex-row justify-center  items-center">
+          <div className="moveInLeft border-primary relative border-2 border-none flex flex-col justify-center items-center shadow-[7px_7px_7px_5px_#7736E0] w-3/4 md:w-3/5  h-[400px] bg-primary">
             <Logo />
             <Input
               userName={userName}
