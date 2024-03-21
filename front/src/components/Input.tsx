@@ -18,7 +18,7 @@ export default function Input({
   };
 
   return (
-    <form className=" invisible flex flex-col justify-center items-center relative h-full w-full">
+    <form className="flex flex-col justify-center items-center relative h-full w-full">
       <input
         data-testid="input"
         name="userName"

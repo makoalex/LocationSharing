@@ -12,13 +12,15 @@ import { connectWithIoSocket } from "../SocketConnect/SocketConnect";
 import { proceedWithLogin } from "../store/actions/LoginPageActions";
 import { connectWithPeerServer } from "../realTimeCommunication/webRtcHanler";
 import phone from "../assets/phone.png";
+import { motion, useMotionTemplate, useMotionValue } from "framer-motion";
 
 export default function Login() {
   const [userName, setUserName] = useState("");
   const [locationErrorOccurred, setLocationErrorOccurred] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [mousePosition, setMousePosition]= useState({x:0, y:0})
+  let mouseX = useMotionValue(0);
+  let mouseY = useMotionValue(0);
 
   const locationOptions = {
     enableHighAccuracy: true,
@@ -74,22 +76,24 @@ export default function Login() {
   }, [myLocation]);
   // #FAE4DC
   // #F3DED5
-  const handleMouseMove= (e:React.MouseEvent<HTMLDivElement>)=>{
-    let bonds= e.currentTarget.getBoundingClientRect()
-    let xPosition= e.clientX-bonds.left;
-    let yPosition= e.clientY-bonds.top;
-    setMousePosition({x:xPosition, y:yPosition})
-  }
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    let { left, top } = e.currentTarget.getBoundingClientRect();
+    mouseX.set(e.clientX - left);
+    mouseY.set(e.clientY - top);
+  };
 
   return (
     <>
       <section className="  w-full h-full lg:flex lg:flex-row bg-white">
         <div className=" lg:w-1/2 moveInLeftBg bg-tertiary h-screen flex flex-row justify-center  items-center">
-          <div onMouseMove={handleMouseMove} className="moveInLeft border-primary relative border-2 border-none flex flex-col justify-center items-center shadow-[7px_7px_7px_5px_#7736E0] w-3/4 md:w-3/5  h-[400px] bg-primary">
           <div
+            onMouseMove={handleMouseMove}
+            className="moveInLeft border-primary relative border-2 border-none flex flex-col justify-center items-center shadow-[7px_7px_7px_5px_#7736E0] w-3/4 md:w-3/5  h-[400px] bg-primary"
+          >
+            <motion.div
               className="absolute inset-0"
               style={{
-                background: `radial-gradient( 200px circle at ${mousePosition.x}px ${mousePosition.y}px, #9ef01a, transparent 60%)`,
+                background: useMotionTemplate`radial-gradient( 200px circle at ${mouseX}px ${mouseY}px, #9ef01a, transparent 80%)`,
               }}
             />
             <Logo />
