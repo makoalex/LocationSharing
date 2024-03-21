@@ -18,6 +18,7 @@ export default function Login() {
   const [locationErrorOccurred, setLocationErrorOccurred] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [mousePosition, setMousePosition]= useState({x:0, y:0})
 
   const locationOptions = {
     enableHighAccuracy: true,
@@ -73,12 +74,24 @@ export default function Login() {
   }, [myLocation]);
   // #FAE4DC
   // #F3DED5
+  const handleMouseMove= (e:React.MouseEvent<HTMLDivElement>)=>{
+    let bonds= e.currentTarget.getBoundingClientRect()
+    let xPosition= e.clientX-bonds.left;
+    let yPosition= e.clientY-bonds.top;
+    setMousePosition({x:xPosition, y:yPosition})
+  }
 
   return (
     <>
       <section className="  w-full h-full lg:flex lg:flex-row bg-white">
         <div className=" lg:w-1/2 moveInLeftBg bg-tertiary h-screen flex flex-row justify-center  items-center">
-          <div className="moveInLeft border-primary relative border-2 border-none flex flex-col justify-center items-center shadow-[7px_7px_7px_5px_#7736E0] w-3/4 md:w-3/5  h-[400px] bg-primary">
+          <div onMouseMove={handleMouseMove} className="moveInLeft border-primary relative border-2 border-none flex flex-col justify-center items-center shadow-[7px_7px_7px_5px_#7736E0] w-3/4 md:w-3/5  h-[400px] bg-primary">
+          <div
+              className="absolute inset-0"
+              style={{
+                background: `radial-gradient( 200px circle at ${mousePosition.x}px ${mousePosition.y}px, #9ef01a, transparent 60%)`,
+              }}
+            />
             <Logo />
             <Input
               userName={userName}
