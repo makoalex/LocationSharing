@@ -13,12 +13,17 @@ export default function Input({
   onClickHandler,
   disabled,
 }: InputProps) {
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setUserName(e.target.value);
   };
+  const handleSubmit =(e:React.FormEvent<HTMLFormElement>)=>{
+    e.preventDefault();
+    onClickHandler();
+  }
 
   return (
-    <form className="flex flex-col justify-center items-center relative h-full w-full">
+    <form onSubmit={handleSubmit} className="flex flex-col justify-center items-center relative h-full w-full">
       <input
         data-testid="input"
         name="userName"
@@ -33,7 +38,6 @@ export default function Input({
       type="submit"
         data-testid="button"
         disabled={disabled}
-        onClick={onClickHandler}
         className="disabled:text-gray-400 mt-4  active:bg-accent border-2 border-black  h-[50px] w-3/4 cursor-pointer tracking-wider bg-callAction text-base font-secondary font-semibold shadow-[5px_5px_0px_0px_#0B2447] focus:transition-all focus:duration-200 focus:shadow-none focus:border-b-2 "
       >
         Join Chat
