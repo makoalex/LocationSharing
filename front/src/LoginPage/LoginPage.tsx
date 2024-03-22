@@ -93,7 +93,7 @@ export default function Login() {
             <motion.div
               className="absolute inset-0"
               style={{
-                background: useMotionTemplate`radial-gradient( 150px circle at ${mouseX}px ${mouseY}px, #9ef01a, transparent 80%)`,
+                background: useMotionTemplate`radial-gradient( 150px circle at ${mouseX}px ${mouseY}px, #a36bfeff, transparent 80%)`,
               }}
             />
             <Logo />
